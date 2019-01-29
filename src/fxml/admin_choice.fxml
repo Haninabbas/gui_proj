@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="container" prefHeight="585.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin_choice_Controller">
+   <children>
+      <ImageView fitHeight="1000" fitWidth="2000.0" opacity="0.6">
+         <image>
+            <Image url="@../resources/standard_1500x1125_ParentTeacherConference.jpg" />
+         </image>
+      </ImageView>
+      <SplitPane fx:id="splitpane" cacheShape="false" centerShape="false" dividerPositions="0.2820343461030383, 0.28731836195508587" layoutX="311.0" layoutY="135.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="801.0" prefWidth="1516.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="806.0" prefWidth="310.0" style="-fx-background-color: opaque; -fx-background-insets: opaque;">
+               <children>
+                  <Label fx:id="employee" layoutX="14.0" layoutY="253.0" onMouseClicked="#handleemployee_infoAction" prefHeight="51.0" prefWidth="301.0" text="Employee_info" textFill="#861111">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="137.0" fitWidth="252.0" layoutX="-3.0" layoutY="861.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../resources/color_savetime.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="admin" layoutX="147.0" layoutY="70.0" onMouseClicked="#handleadmin_infoAction" prefHeight="51.0" prefWidth="289.0" text="Admin_Page_Info" textFill="#861111">
+                     <font>
+                        <Font name="System Bold" size="23.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="158.0" fitWidth="164.0" layoutX="-3.0">
+                     <image>
+                        <Image url="@../resources/iconfinder_admin_87402.png" />
+                     </image>
+                     <rotationAxis>
+                        <Point3D x="90.0" y="90.0" z="90.0" />
+                     </rotationAxis>
+                  </ImageView>
+                  <Label fx:id="client" layoutX="165.0" layoutY="462.0" onMouseClicked="#handleclient_infoAction" prefHeight="51.0" prefWidth="193.0" text="Client_info" textFill="#861111">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="137.0" fitWidth="129.0" layoutX="213.0" layoutY="199.0">
+                     <image>
+                        <Image url="@../resources/iconfinder_conversation_job_seeker_employee_unemployee_work_2620525.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="147.0" fitWidth="136.0" layoutY="400.0">
+                     <image>
+                        <Image url="@../resources/iconfinder_Teacher_131497.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+
+          <AnchorPane fx:id="switch_pane" minHeight="0.0" minWidth="0.0" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="998.0" prefWidth="679.0" />
+
+          <AnchorPane fx:id="switch_pane" minHeight="0.0" minWidth="0.0" prefHeight="799.0" prefWidth="1002.0" />
+<!--&gt;>>>>>> design updated check it-->
+        </items>
+      </SplitPane>
+      <Label layoutX="872.0" layoutY="35.0" prefHeight="61.0" prefWidth="289.0" text="Admin Page" textFill="#861111">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="back" fitHeight="130.0" fitWidth="122.0" layoutX="14.0" layoutY="871.0" onMouseClicked="#backHandler" opacity="0.4">
+         <image>
+            <Image url="@../resources/iconfinder_back_126585.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
