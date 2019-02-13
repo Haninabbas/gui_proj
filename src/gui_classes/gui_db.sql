@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `project_gui`.`Person` (
   PRIMARY KEY (`username`))
 ENGINE = InnoDB;
 
-CREATE UNIQUE INDEX `username_UNIQUE` ON `project_gui`.`Person` (`username` ASC) VISIBLE;
+CREATE UNIQUE INDEX `username_UNIQUE` ON `project_gui`.`Person` (`username` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -49,9 +49,9 @@ CREATE TABLE IF NOT EXISTS `project_gui`.`Client` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE UNIQUE INDEX `username_UNIQUE` ON `project_gui`.`Client` (`idclient` ASC) VISIBLE;
+CREATE UNIQUE INDEX `username_UNIQUE` ON `project_gui`.`Client` (`idclient` ASC) ;
 
-CREATE INDEX `fk_Client_Person_idx` ON `project_gui`.`Client` (`Person_username` ASC) VISIBLE;
+CREATE INDEX `fk_Client_Person_idx` ON `project_gui`.`Client` (`Person_username` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -68,9 +68,9 @@ CREATE TABLE IF NOT EXISTS `project_gui`.`admin` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE UNIQUE INDEX `idadmin_UNIQUE` ON `project_gui`.`admin` (`idadmin` ASC) VISIBLE;
+CREATE UNIQUE INDEX `idadmin_UNIQUE` ON `project_gui`.`admin` (`idadmin` ASC) ;
 
-CREATE INDEX `fk_admin_Person1_idx` ON `project_gui`.`admin` (`Person_username` ASC) VISIBLE;
+CREATE INDEX `fk_admin_Person1_idx` ON `project_gui`.`admin` (`Person_username` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -94,9 +94,9 @@ CREATE TABLE IF NOT EXISTS `project_gui`.`BabySitter` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_BabySitter_Person1_idx` ON `project_gui`.`BabySitter` (`Person_username` ASC) VISIBLE;
+CREATE INDEX `fk_BabySitter_Person1_idx` ON `project_gui`.`BabySitter` (`Person_username` ASC) ;
 
-CREATE INDEX `fk_BabySitter_admin1_idx` ON `project_gui`.`BabySitter` (`admin_idadmin` ASC) VISIBLE;
+CREATE INDEX `fk_BabySitter_admin1_idx` ON `project_gui`.`BabySitter` (`admin_idadmin` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -128,11 +128,11 @@ CREATE TABLE IF NOT EXISTS `project_gui`.`sitter_payment` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_sitter_payment_Client1_idx` ON `project_gui`.`sitter_payment` (`Client_idclient` ASC) VISIBLE;
+CREATE INDEX `fk_sitter_payment_Client1_idx` ON `project_gui`.`sitter_payment` (`Client_idclient` ASC) ;
 
-CREATE INDEX `fk_sitter_payment_admin1_idx` ON `project_gui`.`sitter_payment` (`admin_idadmin` ASC) VISIBLE;
+CREATE INDEX `fk_sitter_payment_admin1_idx` ON `project_gui`.`sitter_payment` (`admin_idadmin` ASC) ;
 
-CREATE INDEX `fk_sitter_payment_BabySitter1_idx` ON `project_gui`.`sitter_payment` (`BabySitter_idBabySitter` ASC) VISIBLE;
+CREATE INDEX `fk_sitter_payment_BabySitter1_idx` ON `project_gui`.`sitter_payment` (`BabySitter_idBabySitter` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -163,13 +163,13 @@ CREATE TABLE IF NOT EXISTS `project_gui`.`SitterBooking` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE UNIQUE INDEX `idSitterBooking_UNIQUE` ON `project_gui`.`SitterBooking` (`idSitterBooking` ASC) VISIBLE;
+CREATE UNIQUE INDEX `idSitterBooking_UNIQUE` ON `project_gui`.`SitterBooking` (`idSitterBooking` ASC) ;
 
-CREATE INDEX `fk_SitterBooking_Client1_idx` ON `project_gui`.`SitterBooking` (`Client_idclient` ASC) VISIBLE;
+CREATE INDEX `fk_SitterBooking_Client1_idx` ON `project_gui`.`SitterBooking` (`Client_idclient` ASC) ;
 
-CREATE INDEX `fk_SitterBooking_BabySitter1_idx` ON `project_gui`.`SitterBooking` (`BabySitter_idBabySitter` ASC) VISIBLE;
+CREATE INDEX `fk_SitterBooking_BabySitter1_idx` ON `project_gui`.`SitterBooking` (`BabySitter_idBabySitter` ASC) ;
 
-CREATE INDEX `fk_SitterBooking_sitter_payment1_idx` ON `project_gui`.`SitterBooking` (`sitter_payment_idsitter_payment` ASC) VISIBLE;
+CREATE INDEX `fk_SitterBooking_sitter_payment1_idx` ON `project_gui`.`SitterBooking` (`sitter_payment_idsitter_payment` ASC) ;
 
 
 -- -----------------------------------------------------
@@ -194,16 +194,16 @@ CREATE TABLE IF NOT EXISTS `project_gui`.`SitterRating` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_SitterRating_Client1_idx` ON `project_gui`.`SitterRating` (`Client_idclient` ASC) VISIBLE;
+CREATE INDEX `fk_SitterRating_Client1_idx` ON `project_gui`.`SitterRating` (`Client_idclient` ASC) ;
 
-CREATE INDEX `fk_SitterRating_BabySitter1_idx` ON `project_gui`.`SitterRating` (`BabySitter_idBabySitter` ASC) VISIBLE;
+CREATE INDEX `fk_SitterRating_BabySitter1_idx` ON `project_gui`.`SitterRating` (`BabySitter_idBabySitter` ASC) ;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
------------------------------------------------------
+-- ---------------------------------------------------
 
 
 DELIMITER $$
@@ -265,39 +265,7 @@ values(paid,recieved_sitter,recieved_admin,Client_idclient,admin_idadmin,BabySit
 end$$
 DELIMITER ;
 
-DELIMITER $$
-create trigger deleteclient before delete
-on Client for each row
-begin
-delete from SitterBooking where SitterBooking.Client_idclient=old.id_client;
-delete from SitterRating where SitterRating.Client_idclient=old.id_client;
-delete from sitter_payment where sitter_payment.Client_idclient=old.id_client;
-end $$
-DELIMITER ;
 
-DELIMITER $$
-create trigger deletebabysitter_payment before delete
-on sitter_payment for each row
-begin
-delete from SitterBooking where SitterBooking.sitter_payment_idsitter_payment=old.idsitter_payment;
-end $$
-DELIMITER ;
-
-DELIMITER $$
-create trigger delete_babysitter before delete
-on BabySitter for each row
-begin
-delete from SitterBooking where SitterBooking.BabySitter_idBabySitter=old.idBabySitter;
-end $$
-DELIMITER ;
-
-DELIMITER $$
-create trigger delete_rating before delete
-on BabySitter for each row
-begin
-delete from SitterRating where SitterRating.BabySitter_idBabySitter=old.idBabySitter;
-end $$
-DELIMITER ;
 
 DELIMITER $$
 CREATE PROCEDURE updatename
@@ -448,6 +416,37 @@ where SitterBooking.idSitterBooking=id;
 end $$
 DELIMITER ;
 
+-- ------------------------
+-- triggers
+-- --------------------------
+
+DELIMITER $$
+create trigger deleteclient before delete
+on Client for each row
+begin
+delete from SitterBooking where SitterBooking.Client_idclient=old.idclient;
+delete from SitterRating where SitterRating.Client_idclient=old.idclient;
+delete from sitter_payment where sitter_payment.Client_idclient=old.idclient;
+end $$
+DELIMITER ;
+
+DELIMITER $$
+create trigger deletebabysitter_payment before delete
+on sitter_payment for each row
+begin
+delete from SitterBooking where SitterBooking.sitter_payment_idsitter_payment=old.idsitter_payment;
+end $$
+DELIMITER ;
+
+DELIMITER $$
+create trigger delete_babysitter before delete
+on BabySitter for each row
+begin
+delete from SitterBooking where SitterBooking.BabySitter_idBabySitter=old.idBabySitter;
+delete from SitterRating where SitterRating.BabySitter_idBabySitter=old.idBabySitter;
+delete from sitter_payment where sitter_payment.BabySitter_idBabySitter=old.idBabySitter;
+end $$
+DELIMITER ;
 
 
 
