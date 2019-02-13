@@ -11,8 +11,8 @@ import java.util.ArrayList;
     private ArrayList<Baby_sitter> baby_sitters;
     private ArrayList<Payment> payments;
 
-    private Admin(int ID,String username, String name, String phone, String email, String gender, String password, Date birthdate, Blob image) {
-        super(username, name, phone, email, gender, password, birthdate, image);
+    private Admin(int ID,String username, String name, String phone, String address,String email, String gender, String password, Date birthdate, Blob image) {
+        super(username, name, phone,address ,email, gender, password, birthdate, image);
         payments = new ArrayList<>();
         baby_sitters = new ArrayList<>();
         clients = new ArrayList<>();
@@ -20,7 +20,7 @@ import java.util.ArrayList;
     }
     public Admin getAdmin(){
         if(admin == null){
-            admin = new Admin(ID,username, name, phone, email, gender, password, birthdate, image);
+            admin = new Admin(ID,username, name, phone, address, email, gender, password, birthdate, image);
         }
         return admin;
     }
@@ -45,7 +45,7 @@ import java.util.ArrayList;
          this.baby_sitters = baby_sitters;
      }
      public void addBabySitter(int ID,String username, String name, String phone, String email, String gender, String password, Date birthdate, Blob image,double price_hour){
-        baby_sitters.add(new Baby_sitter(ID,username,name,phone,email,gender,password,birthdate,image,price_hour));
+        baby_sitters.add(new Baby_sitter(ID,username,name,phone,address,email,gender,password,birthdate,image,price_hour));
      }
      public void addClient(Client client){
         clients.add(client);

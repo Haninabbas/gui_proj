@@ -2,23 +2,23 @@
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema project_gui
+-- Schema mydb
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `project_gui` ;
+DROP SCHEMA IF EXISTS `mydb` ;
 
 -- -----------------------------------------------------
--- Schema project_gui
+-- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `project_gui` DEFAULT CHARACTER SET utf8 ;
-USE `project_gui` ;
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
 
 -- -----------------------------------------------------
--- Table `project_gui`.`Person`
+-- Table `mydb`.`Person`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `project_gui`.`Person` (
+CREATE TABLE IF NOT EXISTS `mydb`.`Person` (
   `username` VARCHAR(45) NOT NULL,
   `name` VARCHAR(45) NULL,
   `phone` VARCHAR(45) NULL,
@@ -28,183 +28,273 @@ CREATE TABLE IF NOT EXISTS `project_gui`.`Person` (
   `gender` VARCHAR(45) NULL,
   `password` VARCHAR(45) NULL,
   `image` BLOB NULL,
-  PRIMARY KEY (`username`))
+  PRIMARY KEY (`username`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC))
 ENGINE = InnoDB;
 
-CREATE UNIQUE INDEX `username_UNIQUE` ON `project_gui`.`Person` (`username` ASC) ;
-
 
 -- -----------------------------------------------------
--- Table `project_gui`.`Client`
+-- Table `mydb`.`admin`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `project_gui`.`Client` (
-  `idclient` INT NOT NULL AUTO_INCREMENT,
-  `servicetype` VARCHAR(45) NULL,
-  `Person_username` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idclient`),
-  CONSTRAINT `fk_Client_Person`
-    FOREIGN KEY (`Person_username`)
-    REFERENCES `project_gui`.`Person` (`username`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-CREATE UNIQUE INDEX `username_UNIQUE` ON `project_gui`.`Client` (`idclient` ASC) ;
-
-CREATE INDEX `fk_Client_Person_idx` ON `project_gui`.`Client` (`Person_username` ASC) ;
-
-
--- -----------------------------------------------------
--- Table `project_gui`.`admin`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `project_gui`.`admin` (
+CREATE TABLE IF NOT EXISTS `mydb`.`admin` (
   `idadmin` INT NOT NULL AUTO_INCREMENT,
   `Person_username` VARCHAR(45) NOT NULL,
+  `recieved_money` DOUBLE NULL DEFAULT 0,
   PRIMARY KEY (`idadmin`),
+  UNIQUE INDEX `idadmin_UNIQUE` (`idadmin` ASC),
+  INDEX `fk_admin_Person1_idx` (`Person_username` ASC),
   CONSTRAINT `fk_admin_Person1`
     FOREIGN KEY (`Person_username`)
-    REFERENCES `project_gui`.`Person` (`username`)
+    REFERENCES `mydb`.`Person` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE UNIQUE INDEX `idadmin_UNIQUE` ON `project_gui`.`admin` (`idadmin` ASC) ;
 
-CREATE INDEX `fk_admin_Person1_idx` ON `project_gui`.`admin` (`Person_username` ASC) ;
+-- -----------------------------------------------------
+-- Table `mydb`.`Client`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Client` (
+  `idclient` INT NOT NULL AUTO_INCREMENT,
+  `Person_username` VARCHAR(45) NOT NULL,
+  `admin_idadmin` INT NOT NULL,
+  PRIMARY KEY (`idclient`),
+  UNIQUE INDEX `username_UNIQUE` (`idclient` ASC),
+  INDEX `fk_Client_Person_idx` (`Person_username` ASC),
+  INDEX `fk_Client_admin1_idx` (`admin_idadmin` ASC),
+  CONSTRAINT `fk_Client_Person`
+    FOREIGN KEY (`Person_username`)
+    REFERENCES `mydb`.`Person` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Client_admin1`
+    FOREIGN KEY (`admin_idadmin`)
+    REFERENCES `mydb`.`admin` (`idadmin`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `project_gui`.`BabySitter`
+-- Table `mydb`.`BabySitter`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `project_gui`.`BabySitter` (
+CREATE TABLE IF NOT EXISTS `mydb`.`BabySitter` (
   `idBabySitter` INT NOT NULL,
   `price_hour` DOUBLE NOT NULL,
   `Person_username` VARCHAR(45) NOT NULL,
   `admin_idadmin` INT NOT NULL,
+  `recieved_money` DOUBLE NULL DEFAULT 0,
   PRIMARY KEY (`idBabySitter`),
+  INDEX `fk_BabySitter_Person1_idx` (`Person_username` ASC),
+  INDEX `fk_BabySitter_admin1_idx` (`admin_idadmin` ASC),
   CONSTRAINT `fk_BabySitter_Person1`
     FOREIGN KEY (`Person_username`)
-    REFERENCES `project_gui`.`Person` (`username`)
+    REFERENCES `mydb`.`Person` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_BabySitter_admin1`
     FOREIGN KEY (`admin_idadmin`)
-    REFERENCES `project_gui`.`admin` (`idadmin`)
+    REFERENCES `mydb`.`admin` (`idadmin`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_BabySitter_Person1_idx` ON `project_gui`.`BabySitter` (`Person_username` ASC) ;
-
-CREATE INDEX `fk_BabySitter_admin1_idx` ON `project_gui`.`BabySitter` (`admin_idadmin` ASC) ;
-
 
 -- -----------------------------------------------------
--- Table `project_gui`.`sitter_payment`
+-- Table `mydb`.`sitter_payment`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `project_gui`.`sitter_payment` (
+CREATE TABLE IF NOT EXISTS `mydb`.`sitter_payment` (
   `idsitter_payment` INT NOT NULL AUTO_INCREMENT,
-  `paid` INT NULL,
-  `recieved_sitter` INT NULL,
-  `recieved_admin` INT NULL,
+  `paid` DOUBLE NULL,
+  `recieved_sitter` DOUBLE NULL,
+  `recieved_admin` DOUBLE NULL,
   `Client_idclient` INT NOT NULL,
   `admin_idadmin` INT NOT NULL,
   `BabySitter_idBabySitter` INT NOT NULL,
   PRIMARY KEY (`idsitter_payment`),
+  INDEX `fk_sitter_payment_Client1_idx` (`Client_idclient` ASC),
+  INDEX `fk_sitter_payment_admin1_idx` (`admin_idadmin` ASC),
+  INDEX `fk_sitter_payment_BabySitter1_idx` (`BabySitter_idBabySitter` ASC),
   CONSTRAINT `fk_sitter_payment_Client1`
     FOREIGN KEY (`Client_idclient`)
-    REFERENCES `project_gui`.`Client` (`idclient`)
+    REFERENCES `mydb`.`Client` (`idclient`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_sitter_payment_admin1`
     FOREIGN KEY (`admin_idadmin`)
-    REFERENCES `project_gui`.`admin` (`idadmin`)
+    REFERENCES `mydb`.`admin` (`idadmin`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_sitter_payment_BabySitter1`
     FOREIGN KEY (`BabySitter_idBabySitter`)
-    REFERENCES `project_gui`.`BabySitter` (`idBabySitter`)
+    REFERENCES `mydb`.`BabySitter` (`idBabySitter`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_sitter_payment_Client1_idx` ON `project_gui`.`sitter_payment` (`Client_idclient` ASC) ;
-
-CREATE INDEX `fk_sitter_payment_admin1_idx` ON `project_gui`.`sitter_payment` (`admin_idadmin` ASC) ;
-
-CREATE INDEX `fk_sitter_payment_BabySitter1_idx` ON `project_gui`.`sitter_payment` (`BabySitter_idBabySitter` ASC) ;
-
 
 -- -----------------------------------------------------
--- Table `project_gui`.`SitterBooking`
+-- Table `mydb`.`SitterBooking`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `project_gui`.`SitterBooking` (
+CREATE TABLE IF NOT EXISTS `mydb`.`SitterBooking` (
   `idSitterBooking` INT NOT NULL AUTO_INCREMENT,
-  `Request` TINYINT NULL,
   `date` DATE NULL,
   `Client_idclient` INT NOT NULL,
   `BabySitter_idBabySitter` INT NOT NULL,
   `sitter_payment_idsitter_payment` INT NOT NULL,
   PRIMARY KEY (`idSitterBooking`),
+  UNIQUE INDEX `idSitterBooking_UNIQUE` (`idSitterBooking` ASC),
+  INDEX `fk_SitterBooking_Client1_idx` (`Client_idclient` ASC),
+  INDEX `fk_SitterBooking_BabySitter1_idx` (`BabySitter_idBabySitter` ASC),
+  INDEX `fk_SitterBooking_sitter_payment1_idx` (`sitter_payment_idsitter_payment` ASC),
   CONSTRAINT `fk_SitterBooking_Client1`
     FOREIGN KEY (`Client_idclient`)
-    REFERENCES `project_gui`.`Client` (`idclient`)
+    REFERENCES `mydb`.`Client` (`idclient`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_SitterBooking_BabySitter1`
     FOREIGN KEY (`BabySitter_idBabySitter`)
-    REFERENCES `project_gui`.`BabySitter` (`idBabySitter`)
+    REFERENCES `mydb`.`BabySitter` (`idBabySitter`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_SitterBooking_sitter_payment1`
     FOREIGN KEY (`sitter_payment_idsitter_payment`)
-    REFERENCES `project_gui`.`sitter_payment` (`idsitter_payment`)
+    REFERENCES `mydb`.`sitter_payment` (`idsitter_payment`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE UNIQUE INDEX `idSitterBooking_UNIQUE` ON `project_gui`.`SitterBooking` (`idSitterBooking` ASC) ;
-
-CREATE INDEX `fk_SitterBooking_Client1_idx` ON `project_gui`.`SitterBooking` (`Client_idclient` ASC) ;
-
-CREATE INDEX `fk_SitterBooking_BabySitter1_idx` ON `project_gui`.`SitterBooking` (`BabySitter_idBabySitter` ASC) ;
-
-CREATE INDEX `fk_SitterBooking_sitter_payment1_idx` ON `project_gui`.`SitterBooking` (`sitter_payment_idsitter_payment` ASC) ;
-
 
 -- -----------------------------------------------------
--- Table `project_gui`.`SitterRating`
+-- Table `mydb`.`SitterRating`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `project_gui`.`SitterRating` (
+CREATE TABLE IF NOT EXISTS `mydb`.`SitterRating` (
   `idSitterRating` INT NOT NULL AUTO_INCREMENT,
-  `stars` VARCHAR(45) NULL,
+  `stars` INT NULL,
   `comment` MEDIUMTEXT NULL,
   `Client_idclient` INT NOT NULL,
   `BabySitter_idBabySitter` INT NOT NULL,
   PRIMARY KEY (`idSitterRating`),
+  INDEX `fk_SitterRating_Client1_idx` (`Client_idclient` ASC),
+  INDEX `fk_SitterRating_BabySitter1_idx` (`BabySitter_idBabySitter` ASC),
   CONSTRAINT `fk_SitterRating_Client1`
     FOREIGN KEY (`Client_idclient`)
-    REFERENCES `project_gui`.`Client` (`idclient`)
+    REFERENCES `mydb`.`Client` (`idclient`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_SitterRating_BabySitter1`
     FOREIGN KEY (`BabySitter_idBabySitter`)
-    REFERENCES `project_gui`.`BabySitter` (`idBabySitter`)
+    REFERENCES `mydb`.`BabySitter` (`idBabySitter`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_SitterRating_Client1_idx` ON `project_gui`.`SitterRating` (`Client_idclient` ASC) ;
 
-CREATE INDEX `fk_SitterRating_BabySitter1_idx` ON `project_gui`.`SitterRating` (`BabySitter_idBabySitter` ASC) ;
+-- -----------------------------------------------------
+-- Table `mydb`.`Project`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Project` (
+  `idProject` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(45) NULL,
+  `discription` VARCHAR(45) NULL,
+  `sdate` DATE NULL,
+  `edate` DATE NULL,
+  `duration` VARCHAR(45) NULL,
+  PRIMARY KEY (`idProject`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`team`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`team` (
+  `idteam` INT NOT NULL AUTO_INCREMENT,
+  `Project_idProject` INT NOT NULL,
+  `Questionare_idQuestionare` INT NOT NULL,
+  `couch_username` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idteam`),
+  INDEX `fk_team_Project1_idx` (`Project_idProject` ASC),
+  INDEX `fk_team_Employee1_idx` (`couch_username` ASC),
+  CONSTRAINT `fk_team_Project1`
+    FOREIGN KEY (`Project_idProject`)
+    REFERENCES `mydb`.`Project` (`idProject`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_team_Employee1`
+    FOREIGN KEY (`couch_username`)
+    REFERENCES `mydb`.`Employee` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Employee`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Employee` (
+  `username` VARCHAR(45) NOT NULL,
+  `fname` VARCHAR(45) NULL,
+  `lname` VARCHAR(45) NULL,
+  `password` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `speciality` VARCHAR(45) NULL,
+  `role` VARCHAR(45) NULL,
+  `team_idteam` INT NOT NULL,
+  PRIMARY KEY (`username`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC),
+  INDEX `fk_Employee_team1_idx` (`team_idteam` ASC),
+  CONSTRAINT `fk_Employee_team1`
+    FOREIGN KEY (`team_idteam`)
+    REFERENCES `mydb`.`team` (`idteam`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Questionaire`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Questionaire` (
+  `idQuestion` INT NOT NULL,
+  `Question` MEDIUMTEXT NULL,
+  `team_idteam` INT NOT NULL,
+  PRIMARY KEY (`idQuestion`),
+  INDEX `fk_Questionaire_team1_idx` (`team_idteam` ASC),
+  CONSTRAINT `fk_Questionaire_team1`
+    FOREIGN KEY (`team_idteam`)
+    REFERENCES `mydb`.`team` (`idteam`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`Answers`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`Answers` (
+  `idAnswer` INT NOT NULL,
+  `answer` MEDIUMTEXT NULL,
+  `Employee_username` VARCHAR(45) NOT NULL,
+  `Question_idQuestion` INT NOT NULL,
+  PRIMARY KEY (`idAnswer`),
+  INDEX `fk_Answer_Employee1_idx` (`Employee_username` ASC),
+  INDEX `fk_Answer_Question1_idx` (`Question_idQuestion` ASC),
+  CONSTRAINT `fk_Answer_Employee1`
+    FOREIGN KEY (`Employee_username`)
+    REFERENCES `mydb`.`Employee` (`username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Answer_Question1`
+    FOREIGN KEY (`Question_idQuestion`)
+    REFERENCES `mydb`.`Questionaire` (`idQuestion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
--- ---------------------------------------------------
-
 
 DELIMITER $$
 create procedure addPerson(in username varchar(45),in name varchar(45),
@@ -233,15 +323,15 @@ end $$
 DELIMITER ;
 
 DELIMITER $$
-    create procedure addClient(in servicetype varchar(45),in Person_username varchar(45))
+    create procedure addClient(in Person_username varchar(45))
     begin
-    insert into CLient(servicetype,Person_username)
-    values(servicetype,Person_username);
+    insert into CLient(Person_username)
+    values(Person_username);
     end$$
     DELIMITER ;
 
 DELIMITER $$
-create procedure addSitterRating(in Stars varchar(45),in comment MEDIUMTEXT, in Client_idclient int,in BabySitter_idBabySitter int)
+create procedure addSitterRating(in Stars int,in comment MEDIUMTEXT, in Client_idclient int,in BabySitter_idBabySitter int)
 begin
 insert into SitterRating(Stars,comment,Client_idclient,BabySitter_idBabySitter)
 values(Stars,comment,Client_idclient,BabySitter_idBabySitter);
@@ -249,10 +339,10 @@ end$$
 DELIMITER ;
 
 DELIMITER $$
-create procedure addSitterBooking(in Request TINYINT,in date Date, in Client_idclient int,in BabySitter_idBabySitter int ,in sitter_payment_idsitter_payment int)
+create procedure addSitterBooking(in date Date, in Client_idclient int,in BabySitter_idBabySitter int ,in sitter_payment_idsitter_payment int)
 begin
-insert into SitterBooking(Request,date,Client_idclient,BabySitter_idBabySitter,sitter_payment_idsitter_payment)
-values(Request,date,Client_idclient,BabySitter_idBabySitter,sitter_payment_idsitter_payment);
+insert into SitterBooking(date,Client_idclient,BabySitter_idBabySitter,sitter_payment_idsitter_payment)
+values(date,Client_idclient,BabySitter_idBabySitter,sitter_payment_idsitter_payment);
 end$$
 DELIMITER ;
 
@@ -362,7 +452,6 @@ image=img
 where Person.username=Username;
 end $$
 DELIMITER ;
-drop procedure updateimage;
 
 DELIMITER $$
 CREATE PROCEDURE updatecomments
@@ -447,17 +536,3 @@ delete from SitterRating where SitterRating.BabySitter_idBabySitter=old.idBabySi
 delete from sitter_payment where sitter_payment.BabySitter_idBabySitter=old.idBabySitter;
 end $$
 DELIMITER ;
-
-
-
-
-
-
-
-
-
-
-
-
-
-

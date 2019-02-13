@@ -4,14 +4,15 @@ import java.sql.Blob;
 import java.sql.Date;
 
 public abstract class  Person {
-    protected String username,name,phone,email,gender,password;
+    protected String username,name,phone,address,email,gender,password;
     protected Date birthdate;
     protected Blob image;
 
-    public Person(String username, String name, String phone, String email, String gender, String password, Date birthdate, Blob image) {
+    public Person(String username, String name, String phone,String address, String email, String gender, String password, Date birthdate, Blob image) {
         this.username = username;
         this.name = name;
         this.phone = phone;
+        this.address=address;
         this.email = email;
         this.gender = gender;
         this.password = password;
@@ -81,5 +82,13 @@ public abstract class  Person {
 
     public void setImage(Blob image) {
         this.image = image;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

@@ -12,8 +12,8 @@ public class Client extends Person {
     private ArrayList<Booking> bookings;
     private ArrayList<Rating> ratings;
     private ArrayList<Payment> payments;
-    public Client(int ID,String username, String name, String phone, String email, String gender, String password, Date birthdate, Blob image) {
-        super(username, name, phone, email, gender, password, birthdate, image);
+    public Client(int ID,String username, String name,String address, String phone, String email, String gender, String password, Date birthdate, Blob image) {
+        super(username, name, phone,address, email, gender, password, birthdate, image);
         bookings = new ArrayList<>();
         ratings = new ArrayList<>();
         payments = new ArrayList<>();

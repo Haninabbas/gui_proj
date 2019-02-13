@@ -14,8 +14,8 @@ public class Baby_sitter extends Person{
     private ArrayList<Rating> ratings;
     private ArrayList<Payment> payments;
 
-    public Baby_sitter(int ID,String username, String name, String phone, String email, String gender, String password, Date birthdate, Blob image, double price_hour) {
-        super(username, name, phone, email, gender, password, birthdate, image);
+    public Baby_sitter(int ID,String username, String name, String phone, String address, String email, String gender, String password, Date birthdate, Blob image, double price_hour) {
+        super(username, name, phone, address, email, gender, password, birthdate, image);
         this.price_hour = price_hour;
         bookings = new ArrayList<>();
         ratings = new ArrayList<>();
