@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.payment_controller">
+   <children>
+      <Label layoutX="185.0" layoutY="22.0" prefHeight="30.0" prefWidth="204.0" text="payment method">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <RadioButton layoutX="106.0" layoutY="84.0" mnemonicParsing="false" text="visacard" />
+      <RadioButton layoutX="428.0" layoutY="84.0" mnemonicParsing="false" />
+      <ImageView fitHeight="61.0" fitWidth="79.0" layoutY="-4.0">
+         <image>
+            <Image url="@../resources/payment-128.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="44.0" fitWidth="59.0" layoutX="452.0" layoutY="71.0">
+         <image>
+            <Image url="@../resources/_Mastercard-128.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
