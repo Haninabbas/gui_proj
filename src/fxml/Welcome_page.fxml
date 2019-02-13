@@ -15,11 +15,11 @@
             <Image url="@../resources/Baby-time.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="734.0" layoutY="41.0" opacity="0.74" prefHeight="106.0" prefWidth="152.0" rotate="29.7" text="Your" textFill="#4fa444">
+      <Label layoutX="641.0" layoutY="42.0" opacity="0.74" prefHeight="106.0" prefWidth="152.0" rotate="29.7" text="Your" textFill="#4fa444">
          <font>
             <Font name="AR DECODE" size="76.0" />
          </font></Label>
-      <Label layoutX="161.0" layoutY="113.0" opacity="0.68" rotate="-29.7" text="Place" textFill="#2b9030">
+      <Label layoutX="128.0" layoutY="119.0" opacity="0.68" rotate="-29.7" text="Place" textFill="#2b9030">
          <font>
             <Font name="AR DECODE" size="82.0" />
          </font>
@@ -29,7 +29,7 @@
             <Font name="AR DECODE" size="80.0" />
          </font>
       </Label>
-      <Label layoutX="615.0" layoutY="129.0" opacity="0.74" rotate="45.0" text="Choice" textFill="#309045">
+      <Label layoutX="609.0" layoutY="146.0" opacity="0.74" rotate="35.5" text="Choice" textFill="#309045">
          <font>
             <Font name="AR DECODE" size="67.0" />
          </font></Label>

@@ -1,24 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="607.0" prefWidth="896.0" style="-fx-background-color: \\;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.BookingSitter">
+<AnchorPane prefHeight="1000.0" prefWidth="1960.0" style="-fx-background-color: \\;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Booking_sitter">
    <children>
-      <Button layoutX="802.0" layoutY="87.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="100.0" style="-fx-background-color: #9400D3;" text="Button" />
-      <Button layoutX="609.0" layoutY="86.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="100.0" style="-fx-background-color: #DC143C;" text="BookaSitter" />
-      <Button layoutX="709.0" layoutY="87.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="93.0" style="-fx-background-color: #008000;" text="Rating" />
-      <Button layoutX="509.0" layoutY="86.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="100.0" style="-fx-background-color: #b80aa7;" text="Home" textFill="#171617" />
-      <ImageView fitHeight="464.0" fitWidth="904.0" layoutX="-2.0" layoutY="143.0" opacity="0.8">
-         <image>
-            <Image url="@../resources/720x365xiStock_19439348_wide.jpg.pagespeed.ic.RZtczsjAS6.jpg" />
-         </image>
-      </ImageView>
-      <Circle fill="#e8eff5" layoutX="160.0" layoutY="149.0" opacity="0.43" radius="112.0" rotate="-38.7" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="#f6f9fc" layoutX="256.0" layoutY="226.0" opacity="0.61" radius="111.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="#e8e9eb" layoutX="136.0" layoutY="286.0" opacity="0.79" radius="111.0" stroke="BLACK" strokeType="INSIDE" />
+     
+      <SplitPane fx:id="pane1" dividerPositions="0.15889287544848796" layoutX="1.0" prefHeight="1000.0" prefWidth="1953.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="605.0" prefWidth="138.0" style="-fx-background-color: #FFDAB9;">
+               <children>
+                  <Label layoutX="21.0" layoutY="163.0" opacity="0.49" prefHeight="720.0" prefWidth="264.0" style="-fx-background-color: #90EE90; -fx-background-radius: 30.30;" />
+                  <Label layoutX="2.0" layoutY="14.0" prefHeight="24.0" prefWidth="306.0" text="Your Best Choice is here Get Ready !" textFill="#272d79">
+                     <font>
+                        <Font name="Arial" size="18.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="56.0" fitWidth="56.0" layoutX="21.0" layoutY="339.0">
+                     <image>
+                        <Image url="@../resources/Survey_rating_rate-37-128.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="56.0" fitWidth="56.0" layoutX="21.0" layoutY="268.0">
+                     <image>
+                        <Image url="@../resources/woman-reading-256.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="46.0" fitWidth="48.0" layoutX="25.0" layoutY="206.0">
+                     <image>
+                        <Image url="@../resources/-_Home-House--128.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="56.0" fitWidth="56.0" layoutX="21.0" layoutY="405.0">
+                     <image>
+                        <Image url="@../resources/setting-128.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="56.0" fitWidth="48.0" layoutX="25.0" layoutY="482.0">
+                     <image>
+                        <Image url="@../resources/free-18-512.png" />
+                     </image>
+                  </ImageView>
+               </children></AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="998.0" prefWidth="53.0">
+               <children>
+                  <ImageView fx:id="home_choice" fitHeight="46.0" fitWidth="48.0" onMouseClicked="#home_choiceHandler">
+                     <image>
+                        <Image url="@../resources/icon-menu-128.png" />
+                     </image>
+                     <effect>
+                        <Blend />
+                     </effect>
+                  </ImageView>
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
    </children>
 </AnchorPane>
