@@ -132,7 +132,7 @@ public class login_controller implements Initializable {
 
     @FXML
     private void sign_upEventHandler(ActionEvent event) throws Exception {
-        Parent parent = FXMLLoader.load(getClass().getResource("../fxml/choice_signUp.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("../fxml/Welcome_page.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
