@@ -17,7 +17,7 @@ import java.sql.*;
 import javafx.scene.control.ComboBox;
 import java.util.ResourceBundle;
 
-public class sign_up_Employee_Controller implements Initializable {
+public class sign_up_Babysitter_Controller implements Initializable {
     String server = "localhost";
     int port = 3306;
     String user = "admin";
