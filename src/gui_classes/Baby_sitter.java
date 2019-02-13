@@ -1,13 +1,12 @@
 package gui_classes;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-
 import java.sql.Blob;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-public class Baby_sitter extends Person{
+public class Baby_sitter extends Person implements Observer {
     private double price_hour;
     private int ID;
     private ArrayList<Booking> bookings;
@@ -55,6 +54,11 @@ public class Baby_sitter extends Person{
 
     public int getID() {
         return ID;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("worked");
     }
 }
 
