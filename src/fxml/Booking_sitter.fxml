@@ -26,7 +26,7 @@
                         <Image url="@../resources/Survey_rating_rate-37-128.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="56.0" fitWidth="56.0" layoutX="21.0" layoutY="268.0">
+                  <ImageView fx:id="start" fitHeight="56.0" fitWidth="56.0" layoutX="21.0" layoutY="268.0" onMouseClicked="#startHandler">
                      <image>
                         <Image url="@../resources/woman-reading-256.png" />
                      </image>
