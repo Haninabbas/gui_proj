@@ -10,7 +10,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="switch_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1008.0" prefWidth="1922.0" style="-fx-background-color: #white;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.sign_up_parent_Controller">
@@ -110,7 +109,11 @@
                 <Insets />
             </opaqueInsets>
         </Button>
-      <Circle fill="#ffffff00" layoutX="410.0" layoutY="90.0" radius="67.0" stroke="BLACK" strokeType="INSIDE" />
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="314.0" layoutY="-3.0">
+         <image>
+            <Image url="@../resources/login.png" />
+         </image>
+      </ImageView>
       <ImageView fitHeight="38.0" fitWidth="37.0" layoutX="440.0" layoutY="119.0">
          <image>
             <Image url="@../resources/iconfinder_camera_115759.png" />

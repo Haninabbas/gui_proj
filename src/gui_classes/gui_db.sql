@@ -7,6 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema project_gui
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `project_gui` ;
 
 -- -----------------------------------------------------
 -- Schema project_gui
@@ -15,473 +16,450 @@ CREATE SCHEMA IF NOT EXISTS `project_gui` DEFAULT CHARACTER SET utf8 ;
 USE `project_gui` ;
 
 -- -----------------------------------------------------
--- Table `project_gui`.`Services`
+-- Table `project_gui`.`Person`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `project_gui`.`Services` (
-  `Service_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `Service_name` VARCHAR(45) NULL,
-  PRIMARY KEY (`Service_id`))
+CREATE TABLE IF NOT EXISTS `project_gui`.`Person` (
+  `username` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `phone` VARCHAR(45) NULL,
+  `address` VARCHAR(45) NULL,
+  `birthdate` DATE NULL,
+  `email` VARCHAR(45) NULL,
+  `gender` VARCHAR(45) NULL,
+  `password` VARCHAR(45) NULL,
+  `image` BLOB NULL,
+  PRIMARY KEY (`username`))
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `project_gui`.`Client_info`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `project_gui`.`Client_info` (
-  `Clinet_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `Clinet_FirstName` VARCHAR(45) NULL,
-  `Client_LastName` VARCHAR(45) NULL,
-  `Client_Email` VARCHAR(45) NULL,
-  `Client_pass` VARCHAR(45) NULL,
-  `Client_phonenum` VARCHAR(45) NULL,
-  `Client_gender` VARCHAR(45) NULL,
-  `Location` VARCHAR(45) NULL,
-  `C_image` LONGBLOB NULL,
-  PRIMARY KEY (`Clinet_id`))
-ENGINE = InnoDB
-COMMENT = '	';
+CREATE UNIQUE INDEX `username_UNIQUE` ON `project_gui`.`Person` (`username` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
--- Table `project_gui`.`Employee_info`
+-- Table `project_gui`.`Client`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `project_gui`.`Employee_info` (
-  `Employee_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `Employee_FirstName` VARCHAR(45) NULL,
-  `Employee_LastName` VARCHAR(45) NULL,
-  `Employee_Email` VARCHAR(45) NULL,
-  `Employee_pass` VARCHAR(45) NULL,
-  `Employee_phonenum` VARCHAR(45) NULL,
-  `Employee_gender` VARCHAR(45) NULL,
-  `Employee_Birthdate` DATETIME NULL,
-  `Location` VARCHAR(45) NULL,
-  `Services_Service_id` INT UNSIGNED NOT NULL,
-  `E_image` LONGBLOB NULL,
-
-  PRIMARY KEY (`Employee_id`, `Services_Service_id`),
-  CONSTRAINT `fk_Employee_info_Services1`
-    FOREIGN KEY (`Services_Service_id`)
-    REFERENCES `project_gui`.`Services` (`Service_id`)
+CREATE TABLE IF NOT EXISTS `project_gui`.`Client` (
+  `idclient` INT NOT NULL AUTO_INCREMENT,
+  `servicetype` VARCHAR(45) NULL,
+  `Person_username` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idclient`),
+  CONSTRAINT `fk_Client_Person`
+    FOREIGN KEY (`Person_username`)
+    REFERENCES `project_gui`.`Person` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_Employee_info_Services1_idx` ON `project_gui`.`Employee_info` (`Services_Service_id` ASC) VISIBLE;
+CREATE UNIQUE INDEX `username_UNIQUE` ON `project_gui`.`Client` (`idclient` ASC) VISIBLE;
 
--- -----------------------------------------------------
--- Table `project_gui`.`Admin`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `project_gui`.`Admin` (
-  `UserName` VARCHAR(45) NOT NULL,
-  `Password` VARCHAR(45) NULL,
-  PRIMARY KEY (`UserName`))
-ENGINE = InnoDB;
+CREATE INDEX `fk_Client_Person_idx` ON `project_gui`.`Client` (`Person_username` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
--- Table `project_gui`.`Booking`
+-- Table `project_gui`.`admin`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `project_gui`.`Booking` (
-  `Booking_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `TimeSpent` DATETIME NULL,
-  `Client_info_Clinet_id` INT UNSIGNED NOT NULL,
-  `Services_Service_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`Booking_id`, `Client_info_Clinet_id`, `Services_Service_id`),
-  CONSTRAINT `fk_Booking_Client_info`
-    FOREIGN KEY (`Client_info_Clinet_id`)
-    REFERENCES `project_gui`.`Client_info` (`Clinet_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Booking_Services1`
-    FOREIGN KEY (`Services_Service_id`)
-    REFERENCES `project_gui`.`Services` (`Service_id`)
+CREATE TABLE IF NOT EXISTS `project_gui`.`admin` (
+  `idadmin` INT NOT NULL AUTO_INCREMENT,
+  `Person_username` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idadmin`),
+  CONSTRAINT `fk_admin_Person1`
+    FOREIGN KEY (`Person_username`)
+    REFERENCES `project_gui`.`Person` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_Booking_Client_info_idx` ON `project_gui`.`Booking` (`Client_info_Clinet_id` ASC) VISIBLE;
+CREATE UNIQUE INDEX `idadmin_UNIQUE` ON `project_gui`.`admin` (`idadmin` ASC) VISIBLE;
 
-CREATE INDEX `fk_Booking_Services1_idx` ON `project_gui`.`Booking` (`Services_Service_id` ASC) VISIBLE;
+CREATE INDEX `fk_admin_Person1_idx` ON `project_gui`.`admin` (`Person_username` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
--- Table `project_gui`.`Payment`
+-- Table `project_gui`.`BabySitter`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `project_gui`.`Payment` (
-  `Payment_id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `Admin_UserName` VARCHAR(45) NOT NULL,
-  `Booking_Booking_id` INT UNSIGNED NOT NULL,
-  `Booking_Client_info_Clinet_id` INT UNSIGNED NOT NULL,
-  `Booking_Services_Service_id` INT UNSIGNED NOT NULL,
-  `Employee_info_Employee_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`Payment_id`, `Admin_UserName`, `Booking_Booking_id`, `Booking_Client_info_Clinet_id`, `Booking_Services_Service_id`, `Employee_info_Employee_id`),
-  CONSTRAINT `fk_Payment_Admin1`
-    FOREIGN KEY (`Admin_UserName`)
-    REFERENCES `project_gui`.`Admin` (`UserName`)
+CREATE TABLE IF NOT EXISTS `project_gui`.`BabySitter` (
+  `idBabySitter` INT NOT NULL,
+  `price_hour` DOUBLE NOT NULL,
+  `Person_username` VARCHAR(45) NOT NULL,
+  `admin_idadmin` INT NOT NULL,
+  PRIMARY KEY (`idBabySitter`),
+  CONSTRAINT `fk_BabySitter_Person1`
+    FOREIGN KEY (`Person_username`)
+    REFERENCES `project_gui`.`Person` (`username`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Payment_Booking1`
-    FOREIGN KEY (`Booking_Booking_id` , `Booking_Client_info_Clinet_id` , `Booking_Services_Service_id`)
-    REFERENCES `project_gui`.`Booking` (`Booking_id` , `Client_info_Clinet_id` , `Services_Service_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Payment_Employee_info1`
-    FOREIGN KEY (`Employee_info_Employee_id`)
-    REFERENCES `project_gui`.`Employee_info` (`Employee_id`)
+  CONSTRAINT `fk_BabySitter_admin1`
+    FOREIGN KEY (`admin_idadmin`)
+    REFERENCES `project_gui`.`admin` (`idadmin`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_Payment_Admin1_idx` ON `project_gui`.`Payment` (`Admin_UserName` ASC) VISIBLE;
+CREATE INDEX `fk_BabySitter_Person1_idx` ON `project_gui`.`BabySitter` (`Person_username` ASC) VISIBLE;
 
-CREATE INDEX `fk_Payment_Booking1_idx` ON `project_gui`.`Payment` (`Booking_Booking_id` ASC, `Booking_Client_info_Clinet_id` ASC, `Booking_Services_Service_id` ASC) VISIBLE;
-
-CREATE INDEX `fk_Payment_Employee_info1_idx` ON `project_gui`.`Payment` (`Employee_info_Employee_id` ASC) VISIBLE;
+CREATE INDEX `fk_BabySitter_admin1_idx` ON `project_gui`.`BabySitter` (`admin_idadmin` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
--- Table `project_gui`.`Rating`
+-- Table `project_gui`.`sitter_payment`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `project_gui`.`Rating` (
-  `Rating_id` INT NOT NULL,
-  `rating` VARCHAR(45) NULL,
-  `Client_info_Clinet_id` INT UNSIGNED NOT NULL,
-  `Services_Service_id` INT UNSIGNED NOT NULL,
-  PRIMARY KEY (`Rating_id`, `Client_info_Clinet_id`, `Services_Service_id`),
-  CONSTRAINT `fk_Rating_Client_info1`
-    FOREIGN KEY (`Client_info_Clinet_id`)
-    REFERENCES `project_gui`.`Client_info` (`Clinet_id`)
+CREATE TABLE IF NOT EXISTS `project_gui`.`sitter_payment` (
+  `idsitter_payment` INT NOT NULL AUTO_INCREMENT,
+  `paid` INT NULL,
+  `recieved_sitter` INT NULL,
+  `recieved_admin` INT NULL,
+  `Client_idclient` INT NOT NULL,
+  `admin_idadmin` INT NOT NULL,
+  `BabySitter_idBabySitter` INT NOT NULL,
+  PRIMARY KEY (`idsitter_payment`),
+  CONSTRAINT `fk_sitter_payment_Client1`
+    FOREIGN KEY (`Client_idclient`)
+    REFERENCES `project_gui`.`Client` (`idclient`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Rating_Services1`
-    FOREIGN KEY (`Services_Service_id`)
-    REFERENCES `project_gui`.`Services` (`Service_id`)
+  CONSTRAINT `fk_sitter_payment_admin1`
+    FOREIGN KEY (`admin_idadmin`)
+    REFERENCES `project_gui`.`admin` (`idadmin`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_sitter_payment_BabySitter1`
+    FOREIGN KEY (`BabySitter_idBabySitter`)
+    REFERENCES `project_gui`.`BabySitter` (`idBabySitter`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE INDEX `fk_Rating_Client_info1_idx` ON `project_gui`.`Rating` (`Client_info_Clinet_id` ASC) VISIBLE;
+CREATE INDEX `fk_sitter_payment_Client1_idx` ON `project_gui`.`sitter_payment` (`Client_idclient` ASC) VISIBLE;
 
-CREATE INDEX `fk_Rating_Services1_idx` ON `project_gui`.`Rating` (`Services_Service_id` ASC) VISIBLE;
+CREATE INDEX `fk_sitter_payment_admin1_idx` ON `project_gui`.`sitter_payment` (`admin_idadmin` ASC) VISIBLE;
 
+CREATE INDEX `fk_sitter_payment_BabySitter1_idx` ON `project_gui`.`sitter_payment` (`BabySitter_idBabySitter` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `project_gui`.`SitterBooking`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `project_gui`.`SitterBooking` (
+  `idSitterBooking` INT NOT NULL AUTO_INCREMENT,
+  `Request` TINYINT NULL,
+  `date` DATE NULL,
+  `Client_idclient` INT NOT NULL,
+  `BabySitter_idBabySitter` INT NOT NULL,
+  `sitter_payment_idsitter_payment` INT NOT NULL,
+  PRIMARY KEY (`idSitterBooking`),
+  CONSTRAINT `fk_SitterBooking_Client1`
+    FOREIGN KEY (`Client_idclient`)
+    REFERENCES `project_gui`.`Client` (`idclient`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_SitterBooking_BabySitter1`
+    FOREIGN KEY (`BabySitter_idBabySitter`)
+    REFERENCES `project_gui`.`BabySitter` (`idBabySitter`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_SitterBooking_sitter_payment1`
+    FOREIGN KEY (`sitter_payment_idsitter_payment`)
+    REFERENCES `project_gui`.`sitter_payment` (`idsitter_payment`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE UNIQUE INDEX `idSitterBooking_UNIQUE` ON `project_gui`.`SitterBooking` (`idSitterBooking` ASC) VISIBLE;
+
+CREATE INDEX `fk_SitterBooking_Client1_idx` ON `project_gui`.`SitterBooking` (`Client_idclient` ASC) VISIBLE;
+
+CREATE INDEX `fk_SitterBooking_BabySitter1_idx` ON `project_gui`.`SitterBooking` (`BabySitter_idBabySitter` ASC) VISIBLE;
+
+CREATE INDEX `fk_SitterBooking_sitter_payment1_idx` ON `project_gui`.`SitterBooking` (`sitter_payment_idsitter_payment` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `project_gui`.`SitterRating`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `project_gui`.`SitterRating` (
+  `idSitterRating` INT NOT NULL AUTO_INCREMENT,
+  `stars` VARCHAR(45) NULL,
+  `comment` MEDIUMTEXT NULL,
+  `Client_idclient` INT NOT NULL,
+  `BabySitter_idBabySitter` INT NOT NULL,
+  PRIMARY KEY (`idSitterRating`),
+  CONSTRAINT `fk_SitterRating_Client1`
+    FOREIGN KEY (`Client_idclient`)
+    REFERENCES `project_gui`.`Client` (`idclient`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_SitterRating_BabySitter1`
+    FOREIGN KEY (`BabySitter_idBabySitter`)
+    REFERENCES `project_gui`.`BabySitter` (`idBabySitter`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE INDEX `fk_SitterRating_Client1_idx` ON `project_gui`.`SitterRating` (`Client_idclient` ASC) VISIBLE;
+
+CREATE INDEX `fk_SitterRating_BabySitter1_idx` ON `project_gui`.`SitterRating` (`BabySitter_idBabySitter` ASC) VISIBLE;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+-----------------------------------------------------
 
-ALTER TABLE employee_info MODIFY Employee_Birthdate Date  ;
 
 DELIMITER $$
-create procedure addEmployee_info(in Employee_FirstName varchar(45),in Employee_LastName varchar(45),
-Employee_Email VARCHAR(45),Employee_pass VARCHAR(45),
-Employee_phonenum VARCHAR(45),Employee_gender VARCHAR(45),Employee_Birthdate DATETIME,Location VARCHAR(45),in Services_Service_id Int,E_image LONGBLOB)
+create procedure addPerson(in username varchar(45),in name varchar(45),
+in phone VARCHAR(45),in address VARCHAR(45),
+in birthdate Date,in email VARCHAR(45),in gender varchar(45),in password VARCHAR(45),image BloB)
 begin
-insert into Employee_info(Employee_FirstName,Employee_LastName,Employee_Email,Employee_pass,Employee_phonenum,Employee_gender,Employee_Birthdate,Location,Services_Service_id,E_image)
-values(Employee_FirstName,Employee_LastName,Employee_Email,Employee_pass,Employee_phonenum,Employee_gender,Employee_Birthdate,Location,Services_Service_id,E_image);
-end $$
-DELIMITER ;
-DELIMITER $$
- create procedure add_service(in Service_id int,in Service_name varchar(45))
- begin
- insert into Services (Service_id,Service_name)
- values(Service_id,Service_name);
- end $$
- DELIMITER ;
-
-
-
-DELIMITER $$
-create procedure addClient_info(in Clinet_FirstName varchar(45),in client_LastName varchar(45),
-Client_Email VARCHAR(45),Client_pass VARCHAR(45),
-Client_phonenum VARCHAR(45),Client_gender VARCHAR(45),Location VARCHAR(45),C_image LONGBLOB)
-begin
-insert into Client_info(Clinet_FirstName,client_LastName,Client_Email,client_pass,Client_phonenum,Client_gender,Location,C_image)
-values(Clinet_FirstName,client_LastName,Client_Email,client_pass,Client_phonenum,Client_gender,Location,C_image);
+insert into Person(username,name,phone,address,birthdate,email,gender,password,image)
+values(username,name,phone,address,birthdate,email,gender,password,image);
 end $$
 DELIMITER ;
 
-
-
-  DELIMITER $$
-  create procedure add_admin(in UserName varchar(45),in Password varchar(45))
-  begin
-  insert into Admin (UserName,Password)
-  values(UserName,Password);
-  end $$
-  DELIMITER ;
-
-
-
-ALTER TABLE Client_info RENAME COLUMN Clinet_id TO Client_id;
-
- DELIMITER $$
- create procedure delete_client(in client_id int)
- begin
- delete from Client_info where Clinet_id=client_id;
- delete from Booking where Booking.Client_info_Clinet_id=client_id;
- delete from rating where rating.Client_info_Clinet_id=client_id;
- end $$
- DELIMITER ;
- drop procedure delete_client;
- call  delete_client(1);
+DELIMITER $$
+create procedure addadmin(in Person_username varchar(45))
+begin
+insert into admin(Person_username)
+values(Person_username);
+end $$
+DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE updateCFname
-(in cid int,
-in fname varchar(45))
+create procedure addbabysitter(in price_hour Double,in Person_username varchar(45),in admin_idadmin int)
 begin
-update Client_info
+insert into BabySitter(price_hour,Person_username,admin_idadmin)
+values(price_hour,Person_username,admin_idadmin);
+end $$
+DELIMITER ;
+
+DELIMITER $$
+    create procedure addClient(in servicetype varchar(45),in Person_username varchar(45))
+    begin
+    insert into CLient(servicetype,Person_username)
+    values(servicetype,Person_username);
+    end$$
+    DELIMITER ;
+
+DELIMITER $$
+create procedure addSitterRating(in Stars varchar(45),in comment MEDIUMTEXT, in Client_idclient int,in BabySitter_idBabySitter int)
+begin
+insert into SitterRating(Stars,comment,Client_idclient,BabySitter_idBabySitter)
+values(Stars,comment,Client_idclient,BabySitter_idBabySitter);
+end$$
+DELIMITER ;
+
+DELIMITER $$
+create procedure addSitterBooking(in Request TINYINT,in date Date, in Client_idclient int,in BabySitter_idBabySitter int ,in sitter_payment_idsitter_payment int)
+begin
+insert into SitterBooking(Request,date,Client_idclient,BabySitter_idBabySitter,sitter_payment_idsitter_payment)
+values(Request,date,Client_idclient,BabySitter_idBabySitter,sitter_payment_idsitter_payment);
+end$$
+DELIMITER ;
+
+
+DELIMITER $$
+create procedure addSitterpayment(in paid int,in recieved_sitter int,recieved_admin int, in Client_idclient int,in admin_idadmin int, in BabySitter_idBabySitter int)
+begin
+insert into sitter_payment(paid,recieved_sitter,recieved_admin,Client_idclient,admin_idadmin,BabySitter_idBabySitter)
+values(paid,recieved_sitter,recieved_admin,Client_idclient,admin_idadmin,BabySitter_idBabySitter);
+end$$
+DELIMITER ;
+
+DELIMITER $$
+create trigger deleteclient before delete
+on Client for each row
+begin
+delete from SitterBooking where SitterBooking.Client_idclient=old.id_client;
+delete from SitterRating where SitterRating.Client_idclient=old.id_client;
+delete from sitter_payment where sitter_payment.Client_idclient=old.id_client;
+end $$
+DELIMITER ;
+
+DELIMITER $$
+create trigger deletebabysitter_payment before delete
+on sitter_payment for each row
+begin
+delete from SitterBooking where SitterBooking.sitter_payment_idsitter_payment=old.idsitter_payment;
+end $$
+DELIMITER ;
+
+DELIMITER $$
+create trigger delete_babysitter before delete
+on BabySitter for each row
+begin
+delete from SitterBooking where SitterBooking.BabySitter_idBabySitter=old.idBabySitter;
+end $$
+DELIMITER ;
+
+DELIMITER $$
+create trigger delete_rating before delete
+on BabySitter for each row
+begin
+delete from SitterRating where SitterRating.BabySitter_idBabySitter=old.idBabySitter;
+end $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE updatename
+(in Username varchar(45),
+in pname varchar(45))
+begin
+update Person
 set
-Client_FirstName=fname
-where Client_info.Client_id=cid;
-end $$
-DELIMITER ;
-
-
-DELIMITER $$
-CREATE PROCEDURE updateCLname
-(in cid int,
-in cname varchar(45))
-begin
-update Client_info
-set
-Client_LastName=cname
-where Client_info.Client_id=cid;
-end $$
-DELIMITER ;
-
-
-DELIMITER $$
-CREATE PROCEDURE update_email
-(in cid int,
-in email varchar(45))
-begin
-update Client_info
-set
-Client_Email=email
-where Client_info.Client_id=cid;
+name=pname
+where Person.username=Username;
 end $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE update_gender
-(in cid int,
-in gender varchar(45))
-begin
-update Client_info
-set
-Client_gender=gender
-where Client_info.Client_id=cid;
-end $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE update_location
-(in cid int,
-in location varchar(45))
-begin
-update Client_info
-set
-Location=location
-where Client_info.Client_id=cid;
-end $$
-DELIMITER ;
-
-
- DELIMITER $$
-CREATE PROCEDURE update_phonenum
-(in cid int,
-in num varchar(45))
-begin
-update Client_info
-set
-Client_phonenum=num
-where Client_info.Client_id=cid;
-end $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE updatePass
-(in cid int,
-in pass varchar(45))
-begin
-update Client_info
-set
-Client_pass=pass
-where Client_info.Client_id=cid;
-end $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE update_image
-(in cid int,
-in image blob)
-begin
-update Client_info
-set
-C_image=image
-where Client_info.Client_id=cid;
-end $$
-DELIMITER ;
-
-
-
-
-
- DELIMITER $$
- create procedure delete_employee(in employee_id int)
- begin
- delete from Employee_info where Employee_info.Employee_id=employee_id;
-end $$
-DELIMITER ;
-call delete_employee(1);
-
-
-DELIMITER $$
-CREATE PROCEDURE update_eimage
-(in eid int,
-in image blob)
-begin
-update Employee_info
-set
-E_image=image
-where Employee_info.Employee_id=eid;
-end $$
-DELIMITER ;
-
-
-DELIMITER $$
-CREATE PROCEDURE updateEFname
-(in eid int,
-in fname varchar(45))
-begin
-update Employee_info
-set
-Employee_FirstName=fname
-where Employee_info.Employee_id=eid;
-end $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE updateELname
-(in eid int,
-in lname varchar(45))
-begin
-update Employee_info
-set
-Employee_LastName=lname
-where Employee_info.Employee_id=eid;
-end $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE updatephonenum
-(in eid int,
-in num varchar(45))
-begin
-update Employee_info
-set
-Employee_phonenum=num
-where Employee_info.Employee_id=eid;
-end $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE update_birthdate
-(in eid int,
-in birthdate date)
-begin
-update Employee_info
-set
-Employee_Birthdate=birthdate
-where Employee_info.Employee_id=eid;
-end $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE update_Elocation
-(in eid int,
-in location varchar(45))
-begin
-update Employee_info
-set
-Location=location
-where Employee_info.Employee_id=eid;
-end $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE update_Egender
-(in eid int,
-in gender varchar(45))
-begin
-update Employee_info
-set
-Employee_gender=gender
-where Employee_info.Employee_id=eid;
-end $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE update_Epass
-(in eid int,
-in pass varchar(45))
-begin
-update Employee_info
-set
-Employee_pass=pass
-where Employee_info.Employee_id=eid;
-end $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE PROCEDURE update_EEmail
-(in eid int,
+CREATE PROCEDURE updateemail
+(in Username varchar(45),
 in Email varchar(45))
 begin
-update Employee_info
+update Person
 set
-Employee_Email=Email
-where Employee_info.Employee_id=eid;
+email=Email
+where Person.username=Username;
 end $$
 DELIMITER ;
 
 DELIMITER $$
-CREATE PROCEDURE update_service
-(in eid int,
-in service_id varchar(45))
+CREATE PROCEDURE updategender
+(in Username varchar(45),
+in gender varchar(45))
 begin
-update Employee_info
+update Person
 set
-Services_Service_id=service_id
-where Employee_info.Employee_id=eid;
+gender=gender
+where Person.username=Username;
 end $$
 DELIMITER ;
 
-call add_admin("admin","admin");
+DELIMITER $$
+CREATE PROCEDURE updatepass
+(in Username varchar(45),
+in pass varchar(45))
+begin
+update Person
+set
+password=pass
+where Person.username=Username;
+end $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE updateBirthdate
+(in Username varchar(45),
+in date date)
+begin
+update Person
+set
+birthdate=date
+where Person.username=Username;
+end $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE updateaddress
+(in Username varchar(45),
+in addr varchar(45))
+begin
+update Person
+set
+address=addr
+where Person.username=Username;
+end $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE updatenum
+(in Username varchar(45),
+in num varchar(45))
+begin
+update Person
+set
+phone=num
+where Person.username=Username;
+end $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE updateimage
+(in Username varchar(45),
+in img Blob)
+begin
+update Person
+set
+image=img
+where Person.username=Username;
+end $$
+DELIMITER ;
+drop procedure updateimage;
+
+DELIMITER $$
+CREATE PROCEDURE updatecomments
+(in id int,
+in com mediumtext)
+begin
+update SitterRating
+set
+comment=com
+where SitterRating.idSitterRating=id;
+end $$
+DELIMITER ;
 
 
-call addClient_info("safaa","diab","safaa.diab@gmail.com","1234","71-147258","female","baalback",null);
+DELIMITER $$
+CREATE PROCEDURE updatestars
+(in id int,
+in star mediumtext)
+begin
+update SitterRating
+set
+stars=star
+where SitterRating.idSitterRating=id;
+end $$
+DELIMITER ;
 
-call addEmployee_info("hanin","abbas","hanin.abbas@gmail.com","123456","03-123456","female","1991-12-12","hamra street",1,'null');
-call addEmployee_info("ali","abbas","ali.abbas@gmail.com","123456","03-147523","male","1992-12-12","hamra street",2,load_file('D:\logo-png-clipart-17.jpg'));
+drop procedure updatestars
 
- call add_service(1,"BabySitter_service");
- call add_service(2,"PrivateTutor_service");
+DELIMITER $$
+create procedure updatehours
+(in id int,
+in price_hour double)
+begin
+update BabySitter
+set
+price_hour=price_hour
+where BabySitter.idBabySitter=id;
+end $$
+DELIMITER ;
 
-delete from   Employee_info where Employee_id=1;
 
-drop table services_has_employee_info;
+DELIMITER $$
+create procedure updatedate
+(in id int,
+in date date)
+begin
+update SitterBooking
+set
+date=date
+where SitterBooking.idSitterBooking=id;
+end $$
+DELIMITER ;
 
 
-select*from Services;
-select*from Booking;
-select*from Employee_info;
-select *from Client_info;
-select*from Payment;
-select*from Rating;
-select*from Admin;
 
-SHOW GRANTS FOR 'admin'@'localhost';
- select user(), current_user();
+
+
+
+
+
+
+
+
+
+
+
+
+

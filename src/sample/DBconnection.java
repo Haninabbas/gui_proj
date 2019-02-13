@@ -3,15 +3,7 @@ package sample;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-
 public class DBconnection {
-    String server = "localhost";
-    int port = 3306;
-    String user = "admin";
-    String password = "admin";
-    String database = "project_gui";
-    String jdbcurl;
-
 
     public static Connection getConnection() {
         try {

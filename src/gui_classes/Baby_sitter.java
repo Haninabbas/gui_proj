@@ -3,7 +3,7 @@ package gui_classes;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class Employee {
+public class Baby_sitter implements  Person {
 
 
         private SimpleIntegerProperty id;
@@ -18,7 +18,7 @@ public class Employee {
          private SimpleStringProperty service;
           private byte[] image;
 
-        public Employee(int id,String fname,String lname,String email,String password ,String phonenum,String gender,String birthdate,String Clocation,String service,byte [] image) {
+        public Baby_sitter(int id, String fname, String lname, String email, String password , String phonenum, String gender, String birthdate, String Clocation, String service, byte [] image) {
             this.id = new SimpleIntegerProperty(id);
             this.fname = new SimpleStringProperty(fname);
             this.lname = new SimpleStringProperty(lname);

@@ -1,6 +1,9 @@
 package gui_classes;
 
-public class admin {
+import java.util.ArrayList;
+
+public class admin implements Person {
+    public ArrayList<Person>p=new ArrayList<>();
     private static admin Admin = null;
     private String UserName;
     private String Password;

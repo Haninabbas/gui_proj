@@ -1,6 +1,6 @@
 package controllers;
 
-import gui_classes.Employee;
+import gui_classes.Baby_sitter;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,11 +36,11 @@ public class Employee_info_Controller implements Initializable {
     @FXML
     TextField search;
     @FXML
-    TableView<Employee> table;
+    TableView<Baby_sitter> table;
     @FXML
-    TableColumn<Employee, String> employee_id, employee_fname, employee_lname, employee_pass, employee_email, employee_phonenum, employee_location, employee_gender, employee_birthdate, employee_service;
+    TableColumn<Baby_sitter, String> employee_id, employee_fname, employee_lname, employee_pass, employee_email, employee_phonenum, employee_location, employee_gender, employee_birthdate, employee_service;
     @FXML
-    TableColumn<Employee, Image> employee_image;
+    TableColumn<Baby_sitter, Image> employee_image;
     @FXML
     Label not_found, label;
 
@@ -64,50 +64,50 @@ public class Employee_info_Controller implements Initializable {
         ArrayList<byte[]>  Image= new ArrayList<>();
 
         employee_id.setCellValueFactory(data -> {
-            gui_classes.Employee value = data.getValue();
+            Baby_sitter value = data.getValue();
             String string = "" + value.getId();
             return new ReadOnlyStringWrapper(string);
         });
         employee_fname.setCellValueFactory(data -> {
-            Employee value = data.getValue();
+            Baby_sitter value = data.getValue();
             String string = value.getfName();
             return new ReadOnlyStringWrapper(string);
         });
         employee_lname.setCellValueFactory(data -> {
-            Employee value = data.getValue();
+            Baby_sitter value = data.getValue();
             return new ReadOnlyStringWrapper(value.getlName());
         });
         employee_email.setCellValueFactory(data -> {
-            Employee value = data.getValue();
-            return new ReadOnlyStringWrapper(((Employee) value).getEmail());
+            Baby_sitter value = data.getValue();
+            return new ReadOnlyStringWrapper(((Baby_sitter) value).getEmail());
         });
         employee_pass.setCellValueFactory(data -> {
-            Employee value = data.getValue();
-            return new ReadOnlyStringWrapper(((Employee) value).getPassword());
+            Baby_sitter value = data.getValue();
+            return new ReadOnlyStringWrapper(((Baby_sitter) value).getPassword());
         });
 
         employee_phonenum.setCellValueFactory(data -> {
-            Employee value = data.getValue();
-            return new ReadOnlyStringWrapper(((Employee) value).getPhonenum());
+            Baby_sitter value = data.getValue();
+            return new ReadOnlyStringWrapper(((Baby_sitter) value).getPhonenum());
         });
         employee_gender.setCellValueFactory(data -> {
-            Employee value = data.getValue();
-            return new ReadOnlyStringWrapper(((Employee) value).getGender());
+            Baby_sitter value = data.getValue();
+            return new ReadOnlyStringWrapper(((Baby_sitter) value).getGender());
         });
         employee_birthdate.setCellValueFactory(data -> {
-            Employee value = data.getValue();
-            return new ReadOnlyStringWrapper(((Employee) value).getBirthdate());
+            Baby_sitter value = data.getValue();
+            return new ReadOnlyStringWrapper(((Baby_sitter) value).getBirthdate());
         });
         employee_location.setCellValueFactory(data -> {
-            Employee value = data.getValue();
-            return new ReadOnlyStringWrapper(((Employee) value).getLocation());
+            Baby_sitter value = data.getValue();
+            return new ReadOnlyStringWrapper(((Baby_sitter) value).getLocation());
         });
         employee_service.setCellValueFactory(data -> {
-            Employee value = data.getValue();
+            Baby_sitter value = data.getValue();
             String string = "" + value.getService();
             return new ReadOnlyStringWrapper(string);
         });
-        employee_image.setCellValueFactory(new PropertyValueFactory<Employee,Image>("Image"));
+        employee_image.setCellValueFactory(new PropertyValueFactory<Baby_sitter,Image>("Image"));
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -144,7 +144,7 @@ public class Employee_info_Controller implements Initializable {
                 rs2 = stmt.executeQuery(getservice_name);
                 rs2.next();
                 Service.add(rs2.getString(1));
-                table.getItems().add(new Employee(Eid.get(i), Ename.get(i), Elname.get(i), Email.get(i), password.get(i), num.get(i), Gender.get(i), birth.get(i), loc.get(i), Service.get(i),Image.get(i)));
+                table.getItems().add(new Baby_sitter(Eid.get(i), Ename.get(i), Elname.get(i), Email.get(i), password.get(i), num.get(i), Gender.get(i), birth.get(i), loc.get(i), Service.get(i),Image.get(i)));
             }
             } catch(Exception e){
                 e.printStackTrace();
@@ -155,8 +155,8 @@ public class Employee_info_Controller implements Initializable {
 
     @FXML
     private void updatefNameHandler(TableColumn.CellEditEvent event) {
-        Employee employee = table.getSelectionModel().getSelectedItem();
-        String edit = "call updateEFname('" + employee.getId() + "','" + event.getNewValue() + "')";
+        Baby_sitter babysitter = table.getSelectionModel().getSelectedItem();
+        String edit = "call updateEFname('" + babysitter.getId() + "','" + event.getNewValue() + "')";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
@@ -169,8 +169,8 @@ public class Employee_info_Controller implements Initializable {
 
     @FXML
     private void updatelNameHandler(TableColumn.CellEditEvent event) {
-        Employee employee = table.getSelectionModel().getSelectedItem();
-        String edit = "call updateELname('" + employee.getId() + "','" + event.getNewValue() + "')";
+        Baby_sitter babysitter = table.getSelectionModel().getSelectedItem();
+        String edit = "call updateELname('" + babysitter.getId() + "','" + event.getNewValue() + "')";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
@@ -183,8 +183,8 @@ public class Employee_info_Controller implements Initializable {
 
     @FXML
     private void updateemailHandler(TableColumn.CellEditEvent event) {
-        Employee employee = table.getSelectionModel().getSelectedItem();
-        String edit = "call update_EEmail('" + employee.getId() + "','" + event.getNewValue() + "')";
+        Baby_sitter babysitter = table.getSelectionModel().getSelectedItem();
+        String edit = "call update_EEmail('" + babysitter.getId() + "','" + event.getNewValue() + "')";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
@@ -197,8 +197,8 @@ public class Employee_info_Controller implements Initializable {
 
     @FXML
     private void updatepassHandler(TableColumn.CellEditEvent event) {
-        Employee employee = table.getSelectionModel().getSelectedItem();
-        String edit = "call update_Epass('" + employee.getId() + "','" + event.getNewValue() + "')";
+        Baby_sitter babysitter = table.getSelectionModel().getSelectedItem();
+        String edit = "call update_Epass('" + babysitter.getId() + "','" + event.getNewValue() + "')";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
@@ -211,8 +211,8 @@ public class Employee_info_Controller implements Initializable {
 
     @FXML
     private void updategenderHandler(TableColumn.CellEditEvent event) {
-        Employee employee = table.getSelectionModel().getSelectedItem();
-        String edit = "call update_Egender('" + employee.getId() + "','" + event.getNewValue() + "')";
+        Baby_sitter babysitter = table.getSelectionModel().getSelectedItem();
+        String edit = "call update_Egender('" + babysitter.getId() + "','" + event.getNewValue() + "')";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
@@ -225,8 +225,8 @@ public class Employee_info_Controller implements Initializable {
 
     @FXML
     private void updatelocationHandler(TableColumn.CellEditEvent event) {
-        Employee employee = table.getSelectionModel().getSelectedItem();
-        String edit = "call update_Elocation('" + employee.getId() + "','" + event.getNewValue() + "')";
+        Baby_sitter babysitter = table.getSelectionModel().getSelectedItem();
+        String edit = "call update_Elocation('" + babysitter.getId() + "','" + event.getNewValue() + "')";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
@@ -239,8 +239,8 @@ public class Employee_info_Controller implements Initializable {
 
     @FXML
     private void updatephonenumHandler(TableColumn.CellEditEvent event) {
-        Employee employee = table.getSelectionModel().getSelectedItem();
-        String edit = "call updatephonenum('" + employee.getId() + "','" + event.getNewValue() + "')";
+        Baby_sitter babysitter = table.getSelectionModel().getSelectedItem();
+        String edit = "call updatephonenum('" + babysitter.getId() + "','" + event.getNewValue() + "')";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
@@ -253,8 +253,8 @@ public class Employee_info_Controller implements Initializable {
 
     @FXML
     private void updatebirthdateHandler(TableColumn.CellEditEvent event) {
-        Employee employee = table.getSelectionModel().getSelectedItem();
-        String edit = "call update_birthdate('" + employee.getId() + "','" + event.getNewValue() + "')";
+        Baby_sitter babysitter = table.getSelectionModel().getSelectedItem();
+        String edit = "call update_birthdate('" + babysitter.getId() + "','" + event.getNewValue() + "')";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
@@ -267,8 +267,8 @@ public class Employee_info_Controller implements Initializable {
 
     @FXML
     private void updatesServiceTypeHandler(TableColumn.CellEditEvent event) {
-        Employee employee = table.getSelectionModel().getSelectedItem();
-        String edit = "call update_service('" + employee.getId() + "','" + event.getNewValue() + "')";
+        Baby_sitter babysitter = table.getSelectionModel().getSelectedItem();
+        String edit = "call update_service('" + babysitter.getId() + "','" + event.getNewValue() + "')";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
@@ -319,7 +319,7 @@ public class Employee_info_Controller implements Initializable {
                 pst = con.prepareStatement("select *from Employee_info");
                 ResultSet rs = pst.executeQuery();
                 while (rs.next()) {
-                    table.getItems().add(new Employee (rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs.getBytes(11)));
+                    table.getItems().add(new Baby_sitter(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9),rs.getString(10),rs.getBytes(11)));
                 }
             } catch (SQLException e1) {
 
@@ -346,7 +346,7 @@ public class Employee_info_Controller implements Initializable {
                     String service = rs.getString(10);
                     Blob imageBlob = rs.getBlob(11);
                     byte[] image=imageBlob.getBytes(1, (int) imageBlob.length());
-                    table.getItems().add(new Employee(eid, fname, lname, email, pass, phonenum, gender, birthdate, elocation, service,image));
+                    table.getItems().add(new Baby_sitter(eid, fname, lname, email, pass, phonenum, gender, birthdate, elocation, service,image));
                 }
                 } catch(SQLException e1){
                     Logger.getLogger(Employee_info_Controller.class.getName()).log(Level.SEVERE, null, pst);
