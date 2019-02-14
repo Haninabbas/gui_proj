@@ -7,11 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import java.awt.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.scene.control.Button;
+
 import javafx.scene.control.Label;
 public class admin_choice_Controller implements Initializable {
     @FXML
@@ -37,7 +36,7 @@ public class admin_choice_Controller implements Initializable {
     @FXML
     public void handleemployee_infoAction(Event actionEvent)throws Exception{
 
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/Employee_info.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/Babysitter_info.fxml"));
         switch_pane.getChildren().setAll(pane);
     }
     @FXML

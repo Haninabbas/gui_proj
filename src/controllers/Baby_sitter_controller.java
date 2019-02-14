@@ -5,7 +5,7 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class employee_controller implements Initializable {
+public class Baby_sitter_controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
