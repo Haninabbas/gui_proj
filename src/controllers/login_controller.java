@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -37,7 +38,7 @@ public class login_controller implements Initializable {
     Connection con = null;
 
     @FXML
-    ImageView imageView;
+    ImageView imageView,visible;
     @FXML
     TextField username, password;
     @FXML
@@ -223,6 +224,10 @@ public class login_controller implements Initializable {
                 e.printStackTrace();
                 return false;
             }
+        }
+        @FXML
+        private  void visibleHandler(javafx.scene.input.MouseEvent event)throws Exception{
+            password.setText(password.getText());
         }
 
     }
