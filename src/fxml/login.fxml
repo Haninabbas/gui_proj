@@ -27,11 +27,6 @@
             <Image url="@../resources/login.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="visible" fitHeight="35.0" fitWidth="41.0" layoutX="1428.0" layoutY="592.0" onMouseClicked="#visibleHandler">
-         <image>
-            <Image url="@../resources/_1ui-128.png" />
-         </image>
-      </ImageView>
       <VBox layoutX="1638.0" layoutY="663.0" prefHeight="87.0" prefWidth="287.0">
          <children>
             <Label fx:id="no_email" prefHeight="31.0" prefWidth="236.0">

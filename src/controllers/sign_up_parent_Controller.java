@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class sign_up_parent_Controller implements Initializable {
@@ -37,11 +38,13 @@ public class sign_up_parent_Controller implements Initializable {
     @FXML
     AnchorPane switch_pane;
     @FXML
-    Label no_fname,no_lname,no_email,no_pass,no_pass2,no_gender,no_num,no_location;
+    Label no_fname,no_username,no_email,no_pass,no_pass2,no_gender,no_num,no_location;
     @FXML
-    TextField fname,Lname,Email,location,birthdate,num;
+    TextField fname,Email,location,num,username;
     @FXML
     PasswordField pass,confirm_pass;
+    @FXML
+    DatePicker date;
     @FXML
     ComboBox<String> gender;
 //    @FXML
@@ -83,21 +86,21 @@ public class sign_up_parent_Controller implements Initializable {
     }
 
     private void sign_up_parent() {
-        String FirstName = fname.getText();
-        String LastName = Lname.getText();
+        String Username = username.getText();
+        String Name = fname.getText();
         String email=Email.getText();
         String Password = pass.getText();
-        String ConfirmPassword = confirm_pass.getText();
         String Location =location.getText();
         String phone = num.getText();
         String Gender = gender.getValue();
+        LocalDate Date=date.getValue();
 //        Image Image=image.getImage();
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
             Statement stmt = con.createStatement();
-            String test = "call addClient_info("+"'"+fname+"',"+"'"+Lname+"',"+"'"+Email+"',"+"'"+pass+"','"+num+"','"+gender+"','"+location+"','"+image+"')";
+            String test = "call addPerson("+"'"+username+"',"+"'"+fname+"','"+num+"'"+"''"+location+"','"+date+"','"+Email+"'"+"'"+gender+"','"+pass+"','"+image+"')";
             ResultSet rs = stmt.executeQuery(test);
 //            InputStream is=rs.getBinaryStream("image");
 //            OutputStream os=new FileOutputStream(new File("photo.jpg"));
@@ -125,18 +128,18 @@ public class sign_up_parent_Controller implements Initializable {
 
     private boolean checkInfo() {
         boolean flag = false;
+        if (username.getText().isEmpty()) {
+            no_username.setText("Please enter your username");
+            no_username.setTextFill(javafx.scene.paint.Color.web("blue"));
+            flag = false;
+        } else
+            no_fname.setText("");
         if (fname.getText().isEmpty()) {
-            no_fname.setText("Please enter your FirstName");
+            no_fname.setText("Please enter your name");
             no_fname.setTextFill(javafx.scene.paint.Color.web("blue"));
             flag = false;
         } else
             no_fname.setText("");
-        if (Lname.getText().isEmpty()) {
-            no_lname.setText("Please enter your LastName");
-            no_lname.setTextFill(javafx.scene.paint.Color.web("blue"));
-            flag = false;
-        } else
-            no_lname.setText("");
         if (Email.getText().isEmpty()) {
             no_email.setText("Please enter your Email");
             no_email.setTextFill(javafx.scene.paint.Color.web("blue"));
@@ -148,11 +151,7 @@ public class sign_up_parent_Controller implements Initializable {
             no_pass.setTextFill(javafx.scene.paint.Color.web("blue"));
             flag = false;
         }
-        if (confirm_pass.getText().isEmpty() && !(confirm_pass.getText().equals(pass.getText()))) {
-            no_pass2.setText("Please reconfirm your password");
-            no_pass2.setTextFill(javafx.scene.paint.Color.web("blue"));
-            flag = false;
-        }
+
         if (num.getText().isEmpty()) {
             no_num.setText("Please enter your phonenum");
             no_num.setTextFill(javafx.scene.paint.Color.web("blue"));
@@ -172,7 +171,15 @@ public class sign_up_parent_Controller implements Initializable {
         }
         else
             no_location.setText("");
-        if (gender.getValue() != null  && !fname.getText().isEmpty() && !Lname.getText().isEmpty() && !Email.getText().isEmpty() && !num.getText().isEmpty() && !pass.getText().isEmpty()&&!confirm_pass.getText().isEmpty()
+
+        if(date.getEditor().getText().isEmpty()) {
+            no_location.setText("please enter your birthdate");
+            no_location.setTextFill(Color.web("blue"));
+            flag = false;
+        }
+        else
+            no_location.setText("");
+        if (gender.getValue() != null  && !username.getText().isEmpty() && !fname.getText().isEmpty() && !Email.getText().isEmpty() && !num.getText().isEmpty() && !pass.getText().isEmpty()
                 &&!location.getText().isEmpty())
             flag = true;
         return flag;

@@ -1,5 +1,6 @@
 package controllers;
 
+import gui_classes.Client;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PauseTransition;
@@ -22,10 +23,7 @@ import javafx.util.Duration;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class login_controller implements Initializable {
@@ -97,7 +95,7 @@ public class login_controller implements Initializable {
     }
 
     @FXML
-    public void loginHandler(ActionEvent event) throws IOException {
+    private void loginHandler(ActionEvent event) throws IOException {
         PauseTransition pauseTransition = new PauseTransition(Duration.millis(100));
         login_button.setTextFill(Color.web("#2560c6"));
 
@@ -132,6 +130,11 @@ public class login_controller implements Initializable {
     }
 
     @FXML
+    private  void visibleHandler(javafx.scene.input.MouseEvent event)throws Exception{
+        password.setText(password.getText());
+    }
+
+    @FXML
     private void sign_upEventHandler(ActionEvent event) throws Exception {
         Parent parent = FXMLLoader.load(getClass().getResource("../fxml/Welcome_page.fxml"));
         Scene scene = new Scene(parent);
@@ -158,14 +161,21 @@ public class login_controller implements Initializable {
     private boolean loginAsAdmin(){
         String UserName = username.getText();
         String Password = password .getText();
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
-            Statement stmt = con.createStatement();
-            String data = "select UserName,Password  from Person where username='" + UserName + "'and password='" + Password + "'";
-            ResultSet rs2 = stmt.executeQuery(data);
+            Statement stmt = con.createStatement(),stmt2 = con.createStatement();
+            String data = "select username,password  from Person where username='" + UserName + "'and password='" + Password + "'" ;
+            ResultSet rs2 = stmt.executeQuery(data),rs3;
             if (rs2.next()) {
-                return true;
+                rs3 = stmt2.executeQuery("select Person_username from admin where Person_username='"+username+"'");
+                if(rs3.next())
+                    return true;
+                else{
+                    showresult.setText("failed to login");
+                    return false;
+                }
             } else {
                 showresult.setText("failed to login");
                 return false;
@@ -179,17 +189,29 @@ public class login_controller implements Initializable {
 
 }
     private boolean loginAsClient () {
+        int ID;
         String UserName = username.getText();
         String Password = password  .getText();
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
-            Statement stmt = con.createStatement();
-            String data = "select email,password  from Client_info where Client_Email='"+UserName+"'and Client_pass='"+Password+"'";
-            ResultSet rs2 = stmt.executeQuery(data);
+            Statement stmt = con.createStatement(),stmt2 = con.createStatement();
+            String data = "select * from Person where username='"+UserName+"'and password='"+Password+"'";
+            ResultSet rs2 = stmt.executeQuery(data),rs3;
             if (rs2.next()) {
-                return true;
+                rs3 = stmt2.executeQuery("select Person_username from Client where Person_username='"+username+"'");
+                if(rs3.next()){
+                    ID = rs2.getInt("idBabySitter");
+                    FXMLLoader loader = FXMLLoader.load(getClass().getResource("../fxml/client.fxml"));
+                    client_controller clientController =loader.getController();
+                    clientController.setID(ID);
+                    return true;
+                }
+                else{
+                    showresult.setText("failed to login");
+                    return false;
+                }
             } else {
                 showresult.setText("failed to login");
                 return false;
@@ -209,11 +231,17 @@ public class login_controller implements Initializable {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
-                Statement stmt = con.createStatement();
-                String data = "select Employee_Email,Employee_pass  from Employee_info where Employee_Email='" + UserName + "'and Employee_pass='" + Password + "'";
-                ResultSet rs2 = stmt.executeQuery(data);
+                Statement stmt = con.createStatement(),stmt2 = con.createStatement();
+                String data = "select username,password  from Person where username='" + UserName + "'and password='" + Password + "'";
+                ResultSet rs2 = stmt.executeQuery(data),rs3;
                 if (rs2.next()) {
-                    return true;
+                    rs3 = stmt2.executeQuery("select Person_username from babysitter where Person_username='"+username+"'");
+                    if(rs3.next())
+                        return true;
+                    else{
+                        showresult.setText("failed to login");
+                        return false;
+                    }
                 } else {
                     showresult.setText("failed to login");
                     return false;
@@ -225,10 +253,7 @@ public class login_controller implements Initializable {
                 return false;
             }
         }
-        @FXML
-        private  void visibleHandler(javafx.scene.input.MouseEvent event)throws Exception{
-            password.setText(password.getText());
-        }
+
 
     }
 

@@ -1,20 +1,19 @@
 package controllers;
 
+import gui_classes.Baby_sitter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.image.ImageView;
 import java.net.URL;
 import java.sql.*;
-import javafx.scene.control.ComboBox;
+
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class sign_up_Babysitter_Controller implements Initializable {
@@ -30,17 +29,19 @@ public class sign_up_Babysitter_Controller implements Initializable {
     @FXML
     VBox main;
     @FXML
-    Label no_fname,no_lname,no_email,no_pass,no_pass2,no_gender,no_birthdate,no_num,no_location,no_service,no_image;
+    Label no_fname,no_username,no_email,no_pass,no_pass2,no_gender,no_birthdate,no_num,no_location,no_image;
     @FXML
     Button Continue,Back_Page;
     @FXML
-    TextField fname,Lname,Email,location,birthdate,num;
+    TextField fname,Lname,Email,location,birthdate,num,username;
     @FXML
     PasswordField pass,confirm_pass;
     @FXML
     ComboBox<String> gender,service;
     @FXML
     ImageView image,imageback;
+    @FXML
+    DatePicker date;
 
 
     @Override
@@ -64,27 +65,21 @@ public class sign_up_Babysitter_Controller implements Initializable {
     }
 
     private void sign_up_babysitter() {
-        String FirstName = fname.getText();
-        String LastName = Lname.getText();
+
+        String Username = username.getText();
+        String Name = fname.getText();
         String email=Email.getText();
         String Password = pass.getText();
-        String ConfirmPassword = confirm_pass.getText();
         String Location =location.getText();
         String phone = num.getText();
-        String date = birthdate.getText();
         String Gender = gender.getValue();
-        String Service=service.getValue();
-        String getservice_id="select Service_id from Services where Service_name='"+service.getValue()+"'";
+        LocalDate Date=date.getValue();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
             Statement stmt = con.createStatement();
-            ResultSet rs2 = stmt.executeQuery(getservice_id);
-            while (rs2.next()){
+            String test = "call addPerson("+"'"+username+"',"+"'"+fname+"','"+num+"'"+"''"+location+"','"+date+"','"+Email+"'"+"'"+gender+"','"+pass+"','"+image+"')";
 
-            Service=rs2.getString(1);
-            rs2.next();}
-            String test = "call addEmployee_info("+"'"+fname+"',"+"'"+Lname+"',"+"'"+Email+"',"+"'"+pass+"','"+num+"','"+gender+"','"+birthdate+"','"+location+"',"+service+"','null')";
             ResultSet rs = stmt.executeQuery(test);
 
          }catch (SQLException e) {
@@ -100,18 +95,20 @@ public class sign_up_Babysitter_Controller implements Initializable {
 
     private boolean checkInfo() {
         boolean flag = false;
+        if (username.getText().isEmpty()) {
+            no_fname.setText("Please enter your username");
+            no_fname.setTextFill(Color.web("blue"));
+            flag = false;
+        }
+        else
+            no_username.setText("");
         if (fname.getText().isEmpty()) {
-            no_fname.setText("Please enter your FirstName");
+            no_fname.setText("Please enter your name");
             no_fname.setTextFill(Color.web("blue"));
             flag = false;
         }else
             no_fname.setText("");
-        if (Lname.getText().isEmpty()) {
-            no_lname.setText("Please enter your LastName");
-            no_lname.setTextFill(Color.web("blue"));
-            flag = false;
-        }else
-            no_lname.setText("");
+
         if (Email.getText().isEmpty()) {
             no_email.setText("Please enter your Email");
             no_email.setTextFill(Color.web("blue"));
@@ -123,18 +120,14 @@ public class sign_up_Babysitter_Controller implements Initializable {
             no_pass.setTextFill(Color.web("blue"));
             flag = false;
         }
-        if (confirm_pass.getText().isEmpty()&&!(confirm_pass.getText().equals(pass.getText()))){
-            no_pass2.setText("Please reconfirm your password");
-            no_pass2.setTextFill(Color.web("blue"));
-            flag = false;
-        }
+
         if (num.getText().isEmpty()) {
             no_num.setText("Please enter your phonenum");
             no_num.setTextFill(Color.web("blue"));
             flag = false;
         } else
             no_num .setText("");
-        if (birthdate.getText().isEmpty()) {
+        if (date.getEditor().getText().isEmpty()) {
             no_birthdate.setText("Please enter date");
             no_birthdate.setTextFill(Color.web("blue"));
             flag = false;
@@ -153,15 +146,9 @@ public class sign_up_Babysitter_Controller implements Initializable {
         }
         else
             no_location.setText("");
-        if(service.getValue()==null) {
-            no_service.setText("please select a service type");
-            no_service.setTextFill(Color.web("blue"));
-            flag = false;
-        }
-        else
-            no_service.setText("");
-        if (gender.getValue() != null &&service.getValue()!=null && !fname.getText().isEmpty() && !Lname.getText().isEmpty() && !Email.getText().isEmpty() && !num.getText().isEmpty() && !pass.getText().isEmpty()&&!confirm_pass.getText().isEmpty()
-        &&!location.getText().isEmpty()&& !birthdate.getText().isEmpty())
+
+        if (gender.getValue() !=null && !username.getText().isEmpty() && !fname.getText().isEmpty() && !Email.getText().isEmpty() && !num.getText().isEmpty() && !pass.getText().isEmpty()&&!birthdate.getText().isEmpty()
+        &&!location.getText().isEmpty());
             flag = true;
         return flag;
     }

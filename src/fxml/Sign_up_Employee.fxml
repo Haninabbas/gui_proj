@@ -32,13 +32,13 @@
                   <Insets />
                </VBox.margin>
             </Label>
-                <TextField fx:id="fname" promptText="First Name" style="-fx-background-radius: 20,30;">
+                <TextField fx:id="fname" promptText="UserName" style="-fx-background-radius: 20,30;">
                     <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                     </VBox.margin>
                 </TextField>
             <Label fx:id="no_lname" layoutX="10.0" layoutY="125.0" prefHeight="21.0" prefWidth="264.0" />
-                <TextField fx:id="Lname" promptText="Last Name" style="-fx-background-radius: 20,30;">
+                <TextField fx:id="Lname" promptText="Name" style="-fx-background-radius: 20,30;">
                     <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                     </VBox.margin>
@@ -51,12 +51,6 @@
                 </TextField>
             <Label fx:id="no_pass" layoutX="10.0" layoutY="219.0" prefHeight="21.0" prefWidth="210.0" />
                 <PasswordField fx:id="pass" promptText="Password( Min 6 characters)" style="-fx-background-radius: 20,30;">
-                    <VBox.margin>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                    </VBox.margin>
-                </PasswordField>
-            <Label fx:id="no_pass2" layoutX="10.0" layoutY="266.0" prefHeight="21.0" prefWidth="274.0" />
-                <PasswordField fx:id="confirm_pass" promptText="confirm Password(Min 6 characters)" style="-fx-background-radius: 20,30;">
                     <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                     </VBox.margin>
@@ -74,7 +68,7 @@
                     </VBox.margin>
                 </TextField>
             <Label fx:id="no_location" layoutX="10.0" layoutY="10.0" prefHeight="21.0" prefWidth="253.0" />
-            <TextField fx:id="location" layoutX="18.0" layoutY="300.0" promptText="Location" style="-fx-background-radius: 20,30;">
+            <TextField fx:id="location" layoutX="18.0" layoutY="300.0" promptText="address" style="-fx-background-radius: 20,30;">
                <VBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </VBox.margin>
@@ -86,11 +80,6 @@
                </VBox.margin>
             </ComboBox>
             <Label fx:id="no_service" layoutX="10.0" layoutY="10.0" prefHeight="21.0" prefWidth="172.0" />
-            <ComboBox fx:id="service" editable="true" prefWidth="150.0" promptText="Service Type">
-               <VBox.margin>
-                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-               </VBox.margin>
-            </ComboBox>
             </children>
         </VBox>
         <Circle fill="WHITE" layoutX="1647.0" layoutY="122.0" radius="70.0" stroke="#f2eded" strokeType="INSIDE" />

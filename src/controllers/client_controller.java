@@ -12,10 +12,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class client_controller implements Initializable {
+    static private  int ID;
     @FXML
     SplitPane splitPane;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println(ID+"");
     }
     @FXML
     public void onMouseEnter(MouseEvent mouseEvent) {
@@ -24,6 +26,10 @@ public class client_controller implements Initializable {
 
     public void onMouseEnter2(MouseEvent mouseEvent) {
         splitPane.setDividerPosition(0,0.01);
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
 }

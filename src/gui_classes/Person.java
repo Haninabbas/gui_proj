@@ -18,6 +18,8 @@ public abstract class  Person {
         this.password = password;
         this.birthdate = birthdate;
         this.image = image;
+
+
     }
 
     public String getUsername() {
@@ -91,4 +93,5 @@ public abstract class  Person {
     public void setAddress(String address) {
         this.address = address;
     }
+
 }
