@@ -8,12 +8,13 @@
 
 <AnchorPane prefHeight="998.0" prefWidth="2000" style="-fx-background-color: #FFDAB9;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Baby_sitterBooking">
    <children>
-      <Label layoutX="140.0" layoutY="21.0" text="Start Your Booking Now !">
+      <Label layoutX="353.0" layoutY="24.0" text="welcome to our babysitters zone">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
       </Label>
-      <DatePicker layoutX="54.0" layoutY="97.0" promptText="enter the date" />
+      <DatePicker layoutX="94.0" layoutY="225.0" promptText="enter the date" />
       <Button layoutX="478.0" layoutY="355.0" mnemonicParsing="false" text="book service " />
+      <Label layoutX="52.0" layoutY="64.0" />
    </children>
 </AnchorPane>

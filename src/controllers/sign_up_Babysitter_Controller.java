@@ -17,7 +17,7 @@ import java.sql.*;
 import javafx.scene.control.ComboBox;
 import java.util.ResourceBundle;
 
-public class sign_up_Employee_Controller implements Initializable {
+public class sign_up_Babysitter_Controller implements Initializable {
     String server = "localhost";
     int port = 3306;
     String user = "admin";
@@ -46,7 +46,7 @@ public class sign_up_Employee_Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gender.getItems().addAll("Male", "Female");
-        service.getItems().addAll("BabySitter", "PrivateTutor");
+
     }
 
     @FXML
@@ -59,11 +59,11 @@ public class sign_up_Employee_Controller implements Initializable {
     @FXML
     private void continueHandleEvent(ActionEvent event) {
         if (checkInfo())
-            sign_up_Employee();
+            sign_up_babysitter();
 
     }
 
-    private void sign_up_Employee() {
+    private void sign_up_babysitter() {
         String FirstName = fname.getText();
         String LastName = Lname.getText();
         String email=Email.getText();

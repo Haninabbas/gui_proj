@@ -28,7 +28,24 @@ public class help_feedback_controller implements Initializable {
         switchpane.getChildren().setAll(pane);
 
     }
-
-
+    @FXML
+    public void addaccountHandler(ActionEvent event)throws Exception{
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/sign_up_parent.fxml"));
+        switchpane.getChildren().setAll(pane);
     }
+    @FXML
+    public void deletehandler(ActionEvent event){
+            String delete_client = "call deleteclient";
+            try{
+                Class.forName("com.mysql.jdbc.Driver");
+                con= DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","admin","admin" + "" );
+                Statement stmt=con.createStatement();
+                stmt.executeQuery(delete_client);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+
+}
 

@@ -16,17 +16,10 @@ import java.util.ResourceBundle;
 
 public class Baby_sitterBooking implements Initializable {
 @FXML
-ImageView start;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
-    @FXML
-    private void startHandler(MouseEvent event) throws Exception {
-        Parent parent = FXMLLoader.load(getClass().getResource("../fxml/Baby_sitterBooking.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    }
+
 }

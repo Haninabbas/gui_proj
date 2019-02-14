@@ -9,32 +9,89 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
-import java.awt.*;
+import javafx.event.ActionEvent;
 
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class change_pass_controller implements Initializable {
     @FXML
-    Button bt1;
+    Button changebtn;
     @FXML
-    Label no_username,no_pass1,no_pass2,no_pass3;
+    Label no_username,no_pass1,no_pass2,lbl;
     @FXML
     TextField txt1;
     @FXML
-    PasswordField pass1,pass2,pass3;
+    PasswordField pass1,pass2;
     @FXML
-    ImageView visible1,visible2,visible3;
+    ImageView visible1,visible2;
+    @FXML
+    Connection con=null;
 
-
+    PreparedStatement pstmt=null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+    @FXML
+    private void updateHandler(ActionEvent event)throws Exception{
+        if (checkInfo()&&checkconfirmation())
+           try{
 
+               String query="update password "
+                       + " set password=? "
+                       + " where username=? and password=?";
+
+
+               pstmt=con.prepareCall(query);
+
+               pstmt.setString(1,pass2.getText());
+               pstmt.setString(2,txt1.getText());
+               pstmt.setString(3,pass1.getText());
+
+
+               int count=pstmt.executeUpdate();
+
+               if(count>0)
+               {
+                   System.out.println("password successfully changed");
+               }
+               else {
+                   System.out.println("unable to change password, provide right credential");
+               }}
+        catch (Exception e){
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+
+        }
+        }
+
+
+    @FXML
+    private boolean checkconfirmation() {
+        String UserName = txt1.getText();
+        String Password = pass1.getText();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
+            Statement stmt = con.createStatement();
+            String data = "select UserName,Password  from Person where username='" + UserName + "'and password='" + Password + "'";
+            ResultSet rs2 = stmt.executeQuery(data);
+            if (rs2.next()) {
+                return true;
+
+            }
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+
+        }
+        return false;
+    }
     private boolean checkInfo () {
         boolean flag = false;
         if (txt1.getText().isEmpty()) {
@@ -52,12 +109,8 @@ public class change_pass_controller implements Initializable {
             no_pass2.setTextFill(Color.web("#00CED1"));
             flag = false;
         }
-        if (pass3.getText().isEmpty()) {
-            no_pass3.setText("Please confirm your Pass");
-            no_pass3.setTextFill(Color.web("#00CED1"));
-            flag = false;
-        }
-        if (!txt1.getText().isEmpty() && !pass1.getText().isEmpty() &&!pass2.getText().isEmpty() &&!pass3.getText().isEmpty())
+
+        if (!txt1.getText().isEmpty() && !pass1.getText().isEmpty() &&!pass2.getText().isEmpty() );
             flag = true;
         return flag;
     }
@@ -72,12 +125,7 @@ public class change_pass_controller implements Initializable {
                 pass2.setText(pass2.getText());
             }
 
-    @FXML
-    public void visibleHandler3(javafx.scene.input.MouseEvent mouseEvent) throws Exception {
-        {
-            pass3.setText(pass3.getText());
-        }
-    }
+
 
 
 }

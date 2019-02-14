@@ -114,8 +114,8 @@ public class login_controller implements Initializable {
             stage.setScene(scene);
             stage.show();
         }
-        else if (checkInfo() && loginAsEmployee()) {
-            Parent parent = FXMLLoader.load(getClass().getResource("../fxml/employee.fxml"));
+        else if (checkInfo() && loginAsBabysitter()) {
+            Parent parent = FXMLLoader.load(getClass().getResource("../fxml/Babysitter.fxml"));
             Scene scene = new Scene(parent);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -162,7 +162,7 @@ public class login_controller implements Initializable {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
             Statement stmt = con.createStatement();
-            String data = "select UserName,Password  from Admin where UserName='" + UserName + "'and Password='" + Password + "'";
+            String data = "select UserName,Password  from Person where username='" + UserName + "'and password='" + Password + "'";
             ResultSet rs2 = stmt.executeQuery(data);
             if (rs2.next()) {
                 return true;
@@ -202,7 +202,7 @@ public class login_controller implements Initializable {
         }
     }
 
-    private boolean loginAsEmployee () {
+    private boolean loginAsBabysitter () {
             String UserName = username.getText();
             String Password = password  .getText();
 
