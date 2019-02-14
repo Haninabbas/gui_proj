@@ -20,7 +20,7 @@ public class Booking_sitter implements Initializable {
     @FXML
     SplitPane pane1;
     @FXML
-    AnchorPane switchpane;
+    AnchorPane switchpane,container;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -51,7 +51,7 @@ public class Booking_sitter implements Initializable {
 
     }
     @FXML
-    public void helpHandler(javafx.scene.input.MouseEvent mouseEvent) throws IOException {
+    public void helpHandler(MouseEvent mouseEvent) throws IOException {
 
         AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/Help&feedback.fxml"));
         switchpane.getChildren().setAll(pane);
@@ -61,7 +61,7 @@ public class Booking_sitter implements Initializable {
     public void loginpageHandler(MouseEvent mouseEvent) throws IOException {
 
         AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/login.fxml"));
-        switchpane.getChildren().setAll(pane);
+        container.getChildren().setAll(pane);
 
     }
 }

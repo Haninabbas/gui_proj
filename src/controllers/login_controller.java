@@ -186,7 +186,7 @@ public class login_controller implements Initializable {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
             Statement stmt = con.createStatement();
-            String data = "select Client_Email,Client_pass  from Client_info where Client_Email='"+UserName+"'and Client_pass='"+Password+"'";
+            String data = "select email,password  from Client_info where Client_Email='"+UserName+"'and Client_pass='"+Password+"'";
             ResultSet rs2 = stmt.executeQuery(data);
             if (rs2.next()) {
                 return true;

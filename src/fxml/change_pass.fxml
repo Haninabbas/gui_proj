@@ -26,30 +26,40 @@
                         <Font name="System Bold" size="16.0" />
                      </font></Label>
                   <PasswordField fx:id="pass1" layoutX="29.0" layoutY="136.0" opacity="0.82" style="-fx-background-radius: 14,14;" />
-                  <Label layoutX="35.0" layoutY="184.0" text="enter new password" textFill="#3509e4">
+                  <Label layoutX="35.0" layoutY="209.0" text="enter new password" textFill="#3509e4">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font></Label>
-                  <PasswordField fx:id="pass2" layoutX="36.0" layoutY="221.0" opacity="0.82" style="-fx-background-radius: 14,14;" />
+                  <Label layoutX="37.0" layoutY="273.0" text="confirm new password" textFill="#3509e4">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></Label>
+                  <PasswordField fx:id="pass2" layoutX="35.0" layoutY="236.0" opacity="0.82" style="-fx-background-radius: 14,14;" />
+                  <PasswordField fx:id="pass3" layoutX="35.0" layoutY="298.0" opacity="0.82" style="-fx-background-radius: 14,14;" />
                   <ImageView fx:id="visible1" fitHeight="35.0" fitWidth="41.0" layoutX="215.0" layoutY="135.0" onMouseClicked="#visibleHandler1" opacity="0.8">
                      <image>
                         <Image url="@../resources/_1ui-128.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="visible2" fitHeight="35.0" fitWidth="41.0" layoutX="223.0" layoutY="219.0" onMouseClicked="#visibleHandler2" opacity="0.8">
+                  <ImageView fx:id="visible3" fitHeight="35.0" fitWidth="41.0" layoutX="224.0" layoutY="295.0" onMouseClicked="#visibleHandler3" opacity="0.8">
                      <image>
                         <Image url="@../resources/_1ui-128.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="changebtn" layoutX="514.0" layoutY="323.0" mnemonicParsing="false" onAction="#updateHandler" style="-fx-background-radius: 13,14;" text="update" textFill="#eb3285">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Button>
+                  <ImageView fx:id="visible2" fitHeight="35.0" fitWidth="41.0" layoutX="221.0" layoutY="234.0" onMouseClicked="#visibleHandler2" opacity="0.8">
+                     <image>
+                        <Image url="@../resources/_1ui-128.png" />
+                     </image>
+                  </ImageView>
+                  <!--<Button fx:id="bt1" layoutX="514.0" layoutY="323.0" mnemonicParsing="false" onAction="#updateHandler" style="-fx-background-radius: 13,14;" text="update" textFill="#eb3285">-->
+                     <!--<font>-->
+                        <!--<Font name="System Bold" size="15.0" />-->
+                     <!--</font>-->
+                  <!--</Button>-->
                   <Label fx:id="no_username" layoutX="227.0" layoutY="65.0" />
                   <Label fx:id="no_pass1" layoutX="265.0" layoutY="141.0" />
                   <Label fx:id="no_pass2" layoutX="283.0" layoutY="241.0" />
-
+                  <Label fx:id="no_pass3" layoutX="276.0" layoutY="302.0" />
                </children></AnchorPane>
         </content>
          <font>
