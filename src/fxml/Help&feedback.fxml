@@ -39,11 +39,6 @@
                      </font>
                   </Label>
                   <TextArea layoutX="399.0" layoutY="72.0" prefHeight="41.0" prefWidth="526.0" promptText="Describe your issue" />
-                  <ImageView fitHeight="45.0" fitWidth="54.0" layoutX="689.0" layoutY="430.0">
-                     <image>
-                        <Image url="@../resources/cartoon-02-128.png" />
-                     </image>
-                  </ImageView>
                   <Label layoutX="399.0" layoutY="42.0" text="how can we help you?" textFill="#3509e4">
                      <font>
                         <Font name="System Bold" size="20.0" />

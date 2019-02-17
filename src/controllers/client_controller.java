@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class client_controller implements Initializable {
-    static private  int ID;
+    private  int ID;
     @FXML
     SplitPane splitPane;
     @Override
@@ -28,8 +28,14 @@ public class client_controller implements Initializable {
         splitPane.setDividerPosition(0,0.01);
     }
 
-    public void setID(int ID) {
+    void setID(int ID){
         this.ID = ID;
+        System.out.println(ID+"");
     }
+    public client_controller getController(){
+        return this;
+    }
+    public void setData(){
 
+    }
 }

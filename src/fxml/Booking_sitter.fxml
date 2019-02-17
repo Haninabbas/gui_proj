@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.image.Image?>
@@ -73,6 +74,7 @@
                         <Blend />
                      </effect>
                   </ImageView>
+                  <ListView fx:id="listView" layoutX="279.0" layoutY="54.0" prefHeight="944.0" prefWidth="1943.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0" />
                </children></AnchorPane>
         </items>
       </SplitPane>

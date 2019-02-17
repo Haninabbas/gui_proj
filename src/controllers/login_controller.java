@@ -27,6 +27,8 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 public class login_controller implements Initializable {
+    private static int ID;
+
     String server = "localhost";
     int port = 3306;
     String user = "admin";
@@ -106,7 +108,11 @@ public class login_controller implements Initializable {
         });
         pauseTransition.play();
         if (checkInfo() && loginAsClient()) {
-            Parent parent = FXMLLoader.load(getClass().getResource("../fxml/client.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/Booking_sitter.fxml"));
+            Parent parent = (Parent)loader.load();
+            Booking_sitter booking_sitter = loader.getController();
+            booking_sitter.setID(ID);
+            booking_sitter.setData();
             Scene scene = new Scene(parent);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -126,6 +132,8 @@ public class login_controller implements Initializable {
             stage.setScene(scene);
             stage.show();
         }
+        else
+            System.out.println("hahahahahahahahahaha");
 
     }
 
@@ -136,7 +144,7 @@ public class login_controller implements Initializable {
 
     @FXML
     private void sign_upEventHandler(ActionEvent event) throws Exception {
-        Parent parent = FXMLLoader.load(getClass().getResource("../fxml/Welcome_page.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("../fxml/choice_signUp_Controller.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -169,7 +177,8 @@ public class login_controller implements Initializable {
             String data = "select username,password  from Person where username='" + UserName + "'and password='" + Password + "'" ;
             ResultSet rs2 = stmt.executeQuery(data),rs3;
             if (rs2.next()) {
-                rs3 = stmt2.executeQuery("select Person_username from admin where Person_username='"+username+"'");
+                System.out.println("found admin");
+                rs3 = stmt2.executeQuery("select Person_username from admin where Person_username='"+UserName+"'");
                 if(rs3.next())
                     return true;
                 else{
@@ -189,7 +198,6 @@ public class login_controller implements Initializable {
 
 }
     private boolean loginAsClient () {
-        int ID;
         String UserName = username.getText();
         String Password = password  .getText();
 
@@ -197,15 +205,13 @@ public class login_controller implements Initializable {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project_gui", "admin", "admin" + "");
             Statement stmt = con.createStatement(),stmt2 = con.createStatement();
-            String data = "select * from Person where username='"+UserName+"'and password='"+Password+"'";
+            String data = "select * from Person where username='"+UserName+"'and password='"+Password+"';";
             ResultSet rs2 = stmt.executeQuery(data),rs3;
             if (rs2.next()) {
-                rs3 = stmt2.executeQuery("select Person_username from Client where Person_username='"+username+"'");
+                System.out.println("found client");
+                rs3 = stmt2.executeQuery("select * from Client where Person_username='"+UserName+"';");
                 if(rs3.next()){
-                    ID = rs2.getInt("idBabySitter");
-                    FXMLLoader loader = FXMLLoader.load(getClass().getResource("../fxml/client.fxml"));
-                    client_controller clientController =loader.getController();
-                    clientController.setID(ID);
+                    ID = rs3.getInt(1);
                     return true;
                 }
                 else{
@@ -235,10 +241,12 @@ public class login_controller implements Initializable {
                 String data = "select username,password  from Person where username='" + UserName + "'and password='" + Password + "'";
                 ResultSet rs2 = stmt.executeQuery(data),rs3;
                 if (rs2.next()) {
-                    rs3 = stmt2.executeQuery("select Person_username from babysitter where Person_username='"+username+"'");
+
+                    rs3 = stmt2.executeQuery("select Person_username from babysitter where Person_username='"+UserName+"'");
                     if(rs3.next())
                         return true;
                     else{
+                        System.out.println("found babysitter");
                         showresult.setText("failed to login");
                         return false;
                     }
