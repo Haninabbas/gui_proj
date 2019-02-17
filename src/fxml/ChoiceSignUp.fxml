@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="switch_pane" prefHeight="1000.0" prefWidth="1920.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.choice_signUp_Controller">
+<AnchorPane fx:id="switch_pane" prefHeight="1000.0" prefWidth="1920.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChoiceSignUp">
    <children>
       <ImageView fitHeight="1000" fitWidth="1913.0" opacity="0.34">
          <image>

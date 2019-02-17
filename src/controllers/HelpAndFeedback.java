@@ -1,6 +1,5 @@
 package controllers;
 
-import gui_classes.Baby_sitter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,11 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import java.sql.*;
-import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class help_feedback_controller implements Initializable {
+public class HelpAndFeedback implements Initializable {
     @FXML
     Button change,delete,add,feedback;
     Connection con = null;
@@ -24,13 +22,13 @@ public class help_feedback_controller implements Initializable {
     }
     @FXML
     public void changepass_handler(ActionEvent event)throws Exception{
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/change_pass.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("fxml/ChangePassword.fxml"));
         switchpane.getChildren().setAll(pane);
 
     }
     @FXML
     public void addaccountHandler(ActionEvent event)throws Exception{
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/sign_up_parent.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/SignUpParent.fxml"));
         switchpane.getChildren().setAll(pane);
     }
     @FXML

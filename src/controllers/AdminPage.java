@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.Label;
-public class admin_choice_Controller implements Initializable {
+public class AdminPage implements Initializable {
     @FXML
     AnchorPane switch_pane,container;
     @FXML
@@ -30,7 +30,7 @@ public class admin_choice_Controller implements Initializable {
     @FXML
     public void handleclient_infoAction(Event actionEvent)throws Exception{
 
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/Client_info.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("fxml/ParentProfile.fxml"));
         switch_pane.getChildren().setAll(pane);
     }
     @FXML
@@ -47,7 +47,7 @@ public class admin_choice_Controller implements Initializable {
     }
     @FXML
     public void backHandler(MouseEvent actionEvent)throws Exception{
-        AnchorPane pane=FXMLLoader.load(getClass().getResource("../fxml/login.fxml"));
+        AnchorPane pane=FXMLLoader.load(getClass().getResource("fxml/Login.fxml"));
         container.getChildren().setAll(pane);
     }
     @FXML

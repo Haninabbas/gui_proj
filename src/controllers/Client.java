@@ -1,17 +1,14 @@
 package controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.SubScene;
-import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class client_controller implements Initializable {
+public class Client implements Initializable {
     private  int ID;
     @FXML
     SplitPane splitPane;
@@ -32,7 +29,7 @@ public class client_controller implements Initializable {
         this.ID = ID;
         System.out.println(ID+"");
     }
-    public client_controller getController(){
+    public Client getController(){
         return this;
     }
     public void setData(){

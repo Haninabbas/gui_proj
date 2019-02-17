@@ -16,7 +16,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class change_pass_controller implements Initializable {
+public class ChangePassword implements Initializable {
     @FXML
     Button changebtn;
     @FXML

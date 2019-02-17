@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="container" prefHeight="1000.0" prefWidth="1960.0" style="-fx-background-color: \\;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Booking_sitter">
+<AnchorPane fx:id="container" prefHeight="1000.0" prefWidth="1960.0" style="-fx-background-color: \\;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BookingSitter">
    <children>
      
       <SplitPane fx:id="pane1" dividerPositions="0.0020502306509482316" layoutX="1.0" onMouseClicked="#home_choiceHandler" prefHeight="1000.0" prefWidth="1953.0">

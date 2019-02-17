@@ -1,6 +1,5 @@
 package controllers;
 
-import gui_classes.Baby_sitter;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +15,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class sign_up_Babysitter_Controller implements Initializable {
+public class SignUpBabysitter implements Initializable {
     String server = "localhost";
     int port = 3306;
     String user = "admin";
@@ -53,7 +52,7 @@ public class sign_up_Babysitter_Controller implements Initializable {
     @FXML
     private void Back_Page(ActionEvent event)  throws Exception {
 
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/choice_signUp.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("fxml/ChoiceSignUp.fxml"));
         switch_pane.getChildren().setAll(pane);
     }
 

@@ -20,7 +20,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class Booking_sitter implements Initializable {
+public class BookingSitter implements Initializable {
     String name,phone,address,age,email,price_hour;
     int rating=2;
     Connection con;
@@ -79,13 +79,7 @@ public class Booking_sitter implements Initializable {
         pane1.setDividerPosition(0,0.01);
 
     }
-    @FXML
-    public void startHandler(MouseEvent mouseEvent) throws IOException {
 
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/Baby_sitterBooking.fxml"));
-        switchpane.getChildren().setAll(pane);
-
-    }
     @FXML
     public void settingsHandler(javafx.scene.input.MouseEvent mouseEvent) throws IOException {
 
@@ -96,14 +90,14 @@ public class Booking_sitter implements Initializable {
     @FXML
     public void helpHandler(MouseEvent mouseEvent) throws IOException {
 
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/Help&feedback.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("fxml/HelpAndFeedback.fxml"));
         switchpane.getChildren().setAll(pane);
 
     }
     @FXML
     public void loginpageHandler(MouseEvent mouseEvent) throws IOException {
 
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/login.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("fxml/Login.fxml"));
         container.getChildren().setAll(pane);
 
     }

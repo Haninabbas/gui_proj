@@ -14,7 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class choice_signUp_Controller implements Initializable {
+public class ChoiceSignUp implements Initializable {
 
      String server = "localhost";
      int port = 3306;
@@ -37,14 +37,14 @@ public class choice_signUp_Controller implements Initializable {
     @FXML
     private void BackPageHandler(ActionEvent event)  throws Exception {
 
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("../fxml/login.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("fxml/Login.fxml"));
         switch_pane.getChildren().setAll(pane);
     }
 
 
     @FXML
     private void parentEventHandler(ActionEvent event)  throws Exception {
-        Parent parent = FXMLLoader.load(getClass().getResource("../fxml/Sign_up_parent.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("fxml/SignUpParent.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -54,7 +54,7 @@ public class choice_signUp_Controller implements Initializable {
 
     @FXML
     private void providerEvnetHandler(ActionEvent event)  throws Exception {
-        Parent parent = FXMLLoader.load(getClass().getResource("../fxml/Sign_up_Babysitter.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("fxml/SignUpBabysitter.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

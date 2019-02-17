@@ -18,7 +18,7 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class welcome_page implements Initializable {
+public class WelcomePage implements Initializable {
     @FXML
     Shape circle1, circle2, circle3;
     @FXML
@@ -103,7 +103,7 @@ public class welcome_page implements Initializable {
 
     @FXML
     private void backhomeHandler(ActionEvent event) throws Exception {
-        Parent parent = FXMLLoader.load(getClass().getResource("../fxml/login.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("fxml/Login.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -113,7 +113,7 @@ public class welcome_page implements Initializable {
 
     @FXML
     private void bookHandler(ActionEvent event) throws Exception {
-        Parent parent = FXMLLoader.load(getClass().getResource("../fxml/Booking_sitter.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("fxml/BookingSitter.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
