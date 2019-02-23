@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="997.0" prefWidth="1974.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Login">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="997.0" prefWidth="1974.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
    <children>
       <ImageView fitHeight="997.0" fitWidth="1974.0" layoutY="-3.0" opacity="0.74">
          <image>
@@ -27,7 +27,7 @@
             <Image url="@../resources/login.png" />
          </image>
       </ImageView>
-      <VBox layoutX="1638.0" layoutY="663.0" prefHeight="87.0" prefWidth="287.0">
+      <VBox layoutX="1490.0" layoutY="714.0" prefHeight="87.0" prefWidth="287.0">
          <children>
             <Label fx:id="no_email" prefHeight="31.0" prefWidth="236.0">
                <font>
@@ -39,13 +39,8 @@
                </font></Label>
          </children>
       </VBox>
-      <Label fx:id="showresult">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
       <TextField fx:id="username" layoutX="1469.0" layoutY="513.0" prefHeight="51.0" prefWidth="296.0" promptText="Enter Your User Name" style="-fx-background-radius: 14;" />
-      <PasswordField fx:id="password" layoutX="1469.0" layoutY="584.0" prefHeight="50.0" prefWidth="296.0" promptText="Enter Your Passsword" style="-fx-background-radius: 14;" />
+      <PasswordField fx:id="password" layoutX="1469.0" layoutY="584.0" onKeyPressed="#EnterEvent" prefHeight="50.0" prefWidth="296.0" promptText="Enter Your Passsword" style="-fx-background-radius: 14;" />
       <Label layoutX="558.0" layoutY="48.0" prefHeight="50.0" prefWidth="809.0" text="Welcome To Our Service Provider System" textFill="WHITE">
          <font>
             <Font name="Arial Black" size="34.0" />
@@ -60,10 +55,15 @@
             <Font name="Arial Black" size="22.0" />
          </font>
       </Label>
-      <Button fx:id="login_button" layoutX="1545.0" layoutY="644.0" mnemonicParsing="false" onAction="#loginHandler" prefHeight="63.0" prefWidth="144.0" style="-fx-background-color: obaque; -fx-background-radius: 14;" text="Login" textAlignment="CENTER" textFill="#46bdcd">
+      <Button fx:id="login_button" layoutX="1545.0" layoutY="637.0" mnemonicParsing="false" onAction="#loginHandler" prefHeight="63.0" prefWidth="144.0" style="-fx-background-color: obaque; -fx-background-radius: 14;" text="Login" textAlignment="CENTER" textFill="#46bdcd">
          <font>
             <Font name="System Bold" size="34.0" />
          </font>
       </Button>
+      <Label fx:id="showresult" layoutX="1516.0" layoutY="321.0" prefHeight="36.0" prefWidth="202.0" textFill="#46bdcd">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
