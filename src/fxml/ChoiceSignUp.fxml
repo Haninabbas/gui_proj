@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="switch_pane" prefHeight="1000.0" prefWidth="1920.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChoiceSignUp">
+<AnchorPane fx:id="switch_pane" prefHeight="1000.0" prefWidth="1920.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChoiceSignUpController">
    <children>
       <ImageView fitHeight="1000" fitWidth="1913.0" opacity="0.34">
          <image>
@@ -22,7 +22,7 @@
       </Label>
       <Label layoutX="524.0" layoutY="383.0" opacity="0.71" prefHeight="282.0" prefWidth="372.0" style="-fx-background-color: #FFDAB9; -fx-background-radius: 60,40;" />
       <Label layoutX="967.0" layoutY="381.0" opacity="0.71" prefHeight="282.0" prefWidth="402.0" style="-fx-background-color: #FFDAB9; -fx-background-radius: 60,40;" />
-      <Button fx:id="provider" layoutX="1101.0" layoutY="539.0" mnemonicParsing="false" onAction="#providerEvnetHandler" prefHeight="44.0" prefWidth="167.0" style="-fx-background-radius: 16.4; -fx-alignment: backward;" text="SignUp Here !" textFill="#3898a6">
+      <Button fx:id="provider" layoutX="1101.0" layoutY="539.0" mnemonicParsing="false" onAction="#providerEventHandler" prefHeight="44.0" prefWidth="167.0" style="-fx-background-radius: 16.4; -fx-alignment: backward;" text="SignUp Here !" textFill="#3898a6">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Button>
@@ -35,7 +35,7 @@
             <Font name="System Bold" size="29.0" />
          </font>
       </Label>
-      <Button fx:id="Back_Page" layoutX="24.0" layoutY="16.0" mnemonicParsing="false" onAction="#BackPageHandler" prefHeight="42.0" prefWidth="131.0" style="-fx-background-radius: 16.4, 15; -fx-background-color: opaque;" text="Page" textFill="#3898a6">
+      <Button fx:id="Back_Page" layoutX="-9.0" layoutY="23.0" mnemonicParsing="false" onAction="#BackPageHandler" prefHeight="42.0" prefWidth="131.0" style="-fx-background-radius: 16.4, 15; -fx-background-color: opaque;" text="Page" textFill="#3898a6">
          <font>
             <Font name="System Bold" size="19.0" />
          </font></Button>
@@ -81,5 +81,10 @@
             <Font name="System Bold" size="27.0" />
          </font>
       </Label>
+      <ImageView fitHeight="102.0" fitWidth="64.0" layoutX="14.0" layoutY="-7.0" opacity="0.31">
+         <image>
+            <Image url="@../resources/iconfinder_back_126585.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

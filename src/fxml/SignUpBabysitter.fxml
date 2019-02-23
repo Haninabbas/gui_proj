@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="switch_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1009.0" prefWidth="1995.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.sign_up_Employee_Controller">
+<AnchorPane fx:id="switch_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1009.0" prefWidth="1995.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignUpBabysitterController">
     <children>
       <ImageView fitHeight="1000" fitWidth="1960.0" layoutY="5.0" opacity="0.51">
          <image>
@@ -27,59 +27,58 @@
         </Label>
         <VBox fx:id="main" layoutX="1423.0" layoutY="175.0" prefHeight="820.0" prefWidth="464.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="1423.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="175.0">
             <children>
-            <Label fx:id="no_fname" prefHeight="21.0" prefWidth="266.0">
+            <Label fx:id="no_username" prefHeight="21.0" prefWidth="266.0" textFill="#f50671">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </Label>
-                <TextField fx:id="fname" promptText="UserName" style="-fx-background-radius: 20,30;">
+                <TextField fx:id="username" promptText="UserName" style="-fx-background-radius: 20,30;">
                     <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                     </VBox.margin>
                 </TextField>
-            <Label fx:id="no_lname" layoutX="10.0" layoutY="125.0" prefHeight="21.0" prefWidth="264.0" />
-                <TextField fx:id="Lname" promptText="Name" style="-fx-background-radius: 20,30;">
+            <Label fx:id="no_fname" layoutX="10.0" layoutY="125.0" prefHeight="21.0" prefWidth="264.0" textFill="#f50671" />
+                <TextField fx:id="fname" promptText="Name" style="-fx-background-radius: 20,30;">
                     <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                     </VBox.margin>
                 </TextField>
-            <Label fx:id="no_email" layoutX="10.0" layoutY="172.0" prefHeight="21.0" prefWidth="271.0" />
+            <Label fx:id="no_email" layoutX="10.0" layoutY="172.0" prefHeight="21.0" prefWidth="271.0" textFill="#f50671" />
                 <TextField fx:id="Email" promptText="Email" style="-fx-background-radius: 20,30;">
                     <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                     </VBox.margin>
                 </TextField>
-            <Label fx:id="no_pass" layoutX="10.0" layoutY="219.0" prefHeight="21.0" prefWidth="210.0" />
+            <Label fx:id="no_pass" layoutX="10.0" layoutY="219.0" prefHeight="21.0" prefWidth="210.0" textFill="#f50671" />
                 <PasswordField fx:id="pass" promptText="Password( Min 6 characters)" style="-fx-background-radius: 20,30;">
                     <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                     </VBox.margin>
                 </PasswordField>
-            <Label fx:id="no_num" layoutX="10.0" layoutY="313.0" prefHeight="21.0" prefWidth="229.0" />
+            <Label fx:id="no_num" layoutX="10.0" layoutY="313.0" prefHeight="21.0" prefWidth="229.0" textFill="#f50671" />
                 <TextField fx:id="num" promptText="Mobile Number" style="-fx-background-radius: 20,30;">
                     <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                     </VBox.margin>
                 </TextField>
-            <Label fx:id="no_birthdate" layoutX="10.0" layoutY="360.0" prefHeight="21.0" prefWidth="258.0" />
-                <TextField fx:id="birthdate" promptText="BirthDate" style="-fx-background-radius: 20,30;">
+            <Label fx:id="no_birthdate" layoutX="10.0" layoutY="360.0" prefHeight="21.0" prefWidth="258.0" textFill="#f50671" />
+                <TextField fx:id="date" promptText="BirthDate" style="-fx-background-radius: 20,30;">
                     <VBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                     </VBox.margin>
                 </TextField>
-            <Label fx:id="no_location" layoutX="10.0" layoutY="10.0" prefHeight="21.0" prefWidth="253.0" />
+            <Label fx:id="no_location" layoutX="10.0" layoutY="10.0" prefHeight="21.0" prefWidth="253.0" textFill="#f50671" />
             <TextField fx:id="location" layoutX="18.0" layoutY="300.0" promptText="address" style="-fx-background-radius: 20,30;">
                <VBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </VBox.margin>
             </TextField>
-            <Label fx:id="no_gender" layoutX="10.0" layoutY="78.0" prefHeight="21.0" prefWidth="196.0" />
+            <Label fx:id="no_gender" layoutX="10.0" layoutY="78.0" prefHeight="21.0" prefWidth="196.0" textFill="#f50671" />
             <ComboBox fx:id="gender" editable="true" prefHeight="31.0" prefWidth="120.0" promptText="Gender">
                <VBox.margin>
                   <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                </VBox.margin>
             </ComboBox>
-            <Label fx:id="no_service" layoutX="10.0" layoutY="10.0" prefHeight="21.0" prefWidth="172.0" />
             </children>
         </VBox>
         <Circle fill="WHITE" layoutX="1647.0" layoutY="122.0" radius="70.0" stroke="#f2eded" strokeType="INSIDE" />
@@ -97,25 +96,13 @@
             <Image url="@../resources/iconfinder_camera_115759.png" />
          </image>
       </ImageView>
-        <!--<EmojiOneView fx:id="back" fill="HOTPINK" glyphName="BACK" layoutX="30.0" layoutY="41.0" size="30" strokeType="OUTSIDE" strokeWidth="0.0" text="🔙" />-->
+
         <Button fx:id="Continue" alignment="CENTER" cache="true" cacheHint="QUALITY" layoutX="1808.0" layoutY="957.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#continueHandleEvent" prefHeight="38.0" prefWidth="108.0" style="-fx-background-radius: 16.4, 15; -fx-background-color: ##B0C4DE;" text="CONTINUE" textFill="HOTPINK" textOverrun="LEADING_ELLIPSIS">
-            <!--<effect>-->
-                <!--<Lighting>-->
-                    <!--<bumpInput>-->
-                        <!--<Shadow />-->
-                    <!--</bumpInput>-->
-                    <!--<light>-->
-                        <!--<Light.Distant />-->
-                    <!--</light>-->
-                <!--</Lighting>-->
-            <!--</effect>-->
+
             <font>
                 <Font name="System Bold Italic" size="15.0" />
             </font>
         </Button>
-        <!--<EmojiOneView fx:id="back" fill="#2c52fb" glyphName="BACK" layoutX="14.0" layoutY="30.0" onMouseClicked="#backevent" size="30" strokeType="OUTSIDE" strokeWidth="0.0" />-->
-        <!--<FontAwesomeIconView fx:id="camera" fill="WHITE" glyphName="CAMERA" layoutX="333.0" layoutY="120.0" onMouseClicked="#eventHandler" size="70" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="71.99999959394336" />-->
-      <!--<FontAwesomeIconView fx:id="add_pic" fill="#2c52fb" glyphName="PLUS" layoutX="397.0" layoutY="134.0" onMouseClicked="#addEvent" size="30" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="30.000004678964615" />-->
 
     </children>
 </AnchorPane>
